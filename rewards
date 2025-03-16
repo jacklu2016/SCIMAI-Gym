@@ -1,0 +1,11 @@
+MA-DFPPO： reward: mean 46019.735570008976, std 272.9145662642661, max 46609.33996964805, min 45549.539969353005
+transitions_state_all_2025-03-15
+
+A3C: reward: mean 44797.48516932905, std 375.4845745605075, max 45395.08996976353, min 44000.45996849798
+transitions_state_all_2025-03-15  00_00_00
+
+PPO:
+transitions_state_all_2025-03-16  11_51_37.csv
+
+
+AX: 1P3W_2025-03-15_22-53-58/plots/transitions_state_all_2025-03-16_090639.csv
