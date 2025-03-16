@@ -133,6 +133,7 @@ def render_figure(df):
 
     # 自动调整布局
     plt.subplots_adjust(hspace=0.2, wspace=0.3)
+    plt.tight_layout()
     today = datetime.now().date()
     # 格式化为字符串（默认格式：YYYY-MM-DD）
     date_str = today.strftime("%Y-%m-%d")
@@ -180,7 +181,8 @@ def render_figure_stock(df):
         ax.set_ylabel(f'零售商{j + 1}库存', fontsize=12)
 
     # 自动调整布局
-    plt.subplots_adjust(hspace=0.2, wspace=0.3)
+    plt.subplots_adjust(hspace=0.2, wspace=0.3,top=0.9, bottom=0.1)
+    plt.tight_layout()
     today = datetime.now().date()
     # 格式化为字符串（默认格式：YYYY-MM-DD）
     date_str = today.strftime("%Y-%m-%d")
@@ -235,7 +237,8 @@ def render_figure_action(df):
         ax.set_ylabel(f'零售商{j + 1}补货量', fontsize=12)
 
     # 自动调整布局
-    plt.subplots_adjust(hspace=0.2, wspace=0.3)
+    plt.subplots_adjust(hspace=0.2, wspace=0.3,top=0.9, bottom=0.1)
+    plt.tight_layout()
     today = datetime.now().date()
     # 格式化为字符串（默认格式：YYYY-MM-DD）
     date_str = today.strftime("%Y-%m-%d")
