@@ -1,47 +1,132 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
-# 设置随机种子
-np.random.seed(42)
+# 假设原始数组为 `data`，形状为 (N, 30, 3, 1)
+data = np.array([[[[27],
+   [25],
+   [25]],
 
-# 定义参数
-num_weeks = 20  # 模拟20周
-initial_demand = 10  # 客户初始需求
-demand_variability = 0.2  # 需求波动率
+  [[14],
+   [14],
+   [13]],
 
-# 初始化需求和订单量列表
-customer_demand = np.zeros(num_weeks)
-retailer_orders = np.zeros(num_weeks)
-distributor_orders = np.zeros(num_weeks)
-manufacturer_orders = np.zeros(num_weeks)
-supplier_orders = np.zeros(num_weeks)
+  [[6],
+   [5],
+   [4]],
 
-# 生成客户需求数据
-for week in range(num_weeks):
-    customer_demand[week] = initial_demand * (1 + np.random.uniform(-demand_variability, demand_variability))
+  [[4],
+   [0],
+   [3]],
 
-# 模拟供应链中的各级订单量变化
-for week in range(num_weeks):
-    if week == 0:
-        retailer_orders[week] = customer_demand[week]
-    else:
-        retailer_orders[week] = customer_demand[week] * (1 + np.random.uniform(0.05, 0.1))  # 零售商需求放大
+  [[4],
+   [7],
+   [4]],
 
-    distributor_orders[week] = retailer_orders[week] * (1 + np.random.uniform(0.1, 0.2))  # 分销商需求放大
-    manufacturer_orders[week] = distributor_orders[week] * (1 + np.random.uniform(0.1, 0.2))  # 制造商需求放大
-    supplier_orders[week] = manufacturer_orders[week] * (1 + np.random.uniform(0.1, 0.3))  # 供应商需求放大
+  [[16],
+   [15],
+   [18]],
 
-# 绘制需求和订单量的变化
-plt.figure(figsize=(10, 6))
-plt.plot(range(num_weeks), customer_demand, label='Customer Demand', color='blue')
-plt.plot(range(num_weeks), retailer_orders, label='Retailer Orders', color='green', linestyle='--')
-plt.plot(range(num_weeks), distributor_orders, label='Distributor Orders', color='orange', linestyle='--')
-plt.plot(range(num_weeks), manufacturer_orders, label='Manufacturer Orders', color='red', linestyle='--')
-plt.plot(range(num_weeks), supplier_orders, label='Supplier Orders', color='purple', linestyle='--')
+  [[25],
+   [25],
+   [26]],
 
-plt.xlabel('Week')
-plt.ylabel('Order Quantity')
-plt.title('Bullwhip Effect Simulation')
-plt.legend()
-plt.grid(True)
-plt.show()
+  [[40],
+   [38],
+   [42]],
+
+  [[48],
+   [48],
+   [50]],
+
+  [[53],
+   [50],
+   [51]],
+
+  [[48],
+   [52],
+   [49]],
+
+  [[40],
+   [40],
+   [39]],
+
+  [[27],
+   [26],
+   [29]],
+
+  [[18],
+   [17],
+   [17]],
+
+  [[7],
+   [5],
+   [4]],
+
+  [[5],
+   [3],
+   [2]],
+
+  [[7],
+   [4],
+   [7]],
+
+  [[18],
+   [13],
+   [17]],
+
+  [[28],
+   [29],
+   [29]],
+
+  [[38],
+   [42],
+   [43]],
+
+  [[52],
+   [52],
+   [47]],
+
+  [[55],
+   [54],
+   [53]],
+
+  [[48],
+   [52],
+   [49]],
+
+  [[40],
+   [39],
+   [39]],
+
+  [[29],
+   [30],
+   [25]],
+
+  [[18],
+   [16],
+   [15]],
+
+  [[8],
+   [4],
+   [3]],
+
+  [[4],
+   [1],
+   [1]],
+
+  [[8],
+   [8],
+   [5]],
+
+  [[14],
+   [14],
+   [13]]]])
+
+# 提取每个特征的值并重塑为 (N, 30)
+feature1 = data[:, :, 0, 0]  # 第一个特征
+feature2 = data[:, :, 1, 0]  # 第二个特征
+feature3 = data[:, :, 2, 0]  # 第三个特征
+
+# 现在 feature1, feature2, feature3 分别是3个30维的数组
+print(feature1)
+print(feature2)
+print(feature3)
