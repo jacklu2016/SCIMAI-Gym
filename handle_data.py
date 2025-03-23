@@ -249,7 +249,8 @@ def render_figure_action(df):
 
 #读取csv
 #data_frame = pd.read_csv('1P3W_2025-03-15_22-53-58/plots/transitions_state_all_2025-03-16_090639-1.csv')
-data_frame = pd.read_csv('transitions_state_all_2025-03-18.csv')
+#data_frame = pd.read_csv('transitions_state_all_2025-03-18.csv')
+data_frame = pd.read_excel('transitions_state_all_2025-03-18.xlsx')
 #df_len = df.shape[0]
 #change_data(data_frame)
 #render_figure(data_frame)
