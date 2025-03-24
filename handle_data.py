@@ -9,9 +9,10 @@ import matplotlib.pyplot as plt
 plt.rcParams['font.family'] = 'SimHei'
 # 禁用 Unicode 减号，使用普通减号
 plt.rcParams['axes.unicode_minus'] = False
-
-
-
+plt.rcParams.update({
+    'axes.spines.top': False,  # 全局隐藏上边框
+    'axes.spines.right': False,  # 全局隐藏右边框
+})
 #random_action_f = np.zeros(df_len)
 
 
@@ -58,11 +59,11 @@ algo_line_style = [
 T = 30
 
 def render_figure(df):
-    fig, axes = plt.subplots(4, 2, figsize=(18, 16))
+    fig, axes = plt.subplots(4, 2, figsize=(16, 20))
     # for retrun_trace in returns_trace_all:
 
     # plt.figure(figsize=(10, 30))
-
+    fig_no = ['c','d','e','f','g','h']
     # states transitions
     ax = axes[0][0]
 
@@ -74,10 +75,14 @@ def render_figure(df):
                 linestyle=algo_line_style[i]['linestyle'],
                 alpha=.5, label=algo_line_style[i]["label"])
 
-    ax.legend()
-    ax.set_xlabel('时间', fontsize=12)
-    ax.set_ylabel('分销商库存', fontsize=12)
-
+    ax.legend(fontsize=16)
+    ax.set_xlabel('时间', fontsize=16)
+    ax.set_ylabel('分销商库存', fontsize=16)
+    ax.set_title('（a）分销商库存水平',
+                 y=-0.15,  # 负值下移标题
+                 fontsize=16,
+                 fontweight='bold',
+                 verticalalignment='top')  # 文本顶部对齐坐标轴
 
     ax = axes[0][1]
     for i in range(len(argos)):
@@ -89,9 +94,14 @@ def render_figure(df):
                 linestyle=algo_line_style[i]['linestyle'],
                 alpha=.5, label=algo_line_style[i]["label"])
 
-    ax.legend()
-    ax.set_xlabel('时间', fontsize=12)
-    ax.set_ylabel('分销商补货量', fontsize=12)
+    ax.legend(fontsize=16)
+    ax.set_xlabel('时间', fontsize=16)
+    ax.set_ylabel('分销商补货量', fontsize=16)
+    ax.set_title('（b）分销商补货量',
+                 y=-0.15,  # 负值下移标题
+                 fontsize=16,
+                 fontweight='bold',
+                 verticalalignment='top')  # 文本顶部对齐坐标轴
 
     # distribution warehouses stocks分销商的库存
     for j in range(num_distribution_warehouse):
@@ -110,9 +120,15 @@ def render_figure(df):
                     linestyle=algo_line_style[i]['linestyle'],
                     alpha=.5, label=algo_line_style[i]["label"])
         # 添加图例
-        ax.legend()
-        ax.set_xlabel('时间', fontsize=12)
-        ax.set_ylabel(f'零售商{j + 1}库存', fontsize=12)
+        ax.legend(fontsize=16)
+        ax.set_xlabel('时间', fontsize=16)
+        ax.set_ylabel(f'零售商{j + 1}库存', fontsize=16)
+
+        ax.set_title(f'（{fig_no[j*2]}）零售商{j + 1}库存水平',
+                     y=-0.15,  # 负值下移标题
+                     fontsize=16,
+                     fontweight='bold',
+                     verticalalignment='top')  # 文本顶部对齐坐标轴
 
         # 绘制补货动作
         ax_col = 1
@@ -127,9 +143,14 @@ def render_figure(df):
                     alpha=.5, label=algo_line_style[i]["label"])
 
         # 添加图例
-        ax.legend()
-        ax.set_xlabel('时间', fontsize=12)
-        ax.set_ylabel(f'零售商{j + 1}补货量', fontsize=12)
+        ax.legend(fontsize=16)
+        ax.set_xlabel('时间', fontsize=16)
+        ax.set_ylabel(f'零售商{j + 1}补货量', fontsize=16)
+        ax.set_title(f'（{fig_no[j * 2 + 1]}）零售商{j + 1}补货量',
+                     y=-0.15,  # 负值下移标题
+                     fontsize=16,
+                     fontweight='bold',
+                     verticalalignment='top')  # 文本顶部对齐坐标轴
 
     # 自动调整布局
     plt.subplots_adjust(hspace=0.2, wspace=0.3)
@@ -138,9 +159,9 @@ def render_figure(df):
     # 格式化为字符串（默认格式：YYYY-MM-DD）
     date_str = today.strftime("%Y-%m-%d")
     plt.savefig(f"transitions_state_all_{date_str}.svg",
-                format='svg')
+                format='svg',dpi=600,bbox_inches='tight')
     plt.savefig(f"transitions_state_all_{date_str}.pdf",
-                format='pdf')
+                format='pdf',bbox_inches='tight')
     df.to_csv(f"transitions_state_all_{date_str}_new.csv", index=False)
 
 def render_figure_stock(df):
@@ -156,8 +177,8 @@ def render_figure_stock(df):
                 alpha=.5, label=algo_line_style[i]["label"])
 
     ax.legend()
-    ax.set_xlabel('时间', fontsize=12)
-    ax.set_ylabel('分销商库存', fontsize=12)
+    ax.set_xlabel('时间', fontsize=16)
+    ax.set_ylabel('分销商库存', fontsize=16)
 
     # distribution warehouses stocks分销商的库存
     for j in range(num_distribution_warehouse):
@@ -177,8 +198,8 @@ def render_figure_stock(df):
                     alpha=.5, label=algo_line_style[i]["label"])
         # 添加图例
         ax.legend()
-        ax.set_xlabel('时间', fontsize=12)
-        ax.set_ylabel(f'零售商{j + 1}库存', fontsize=12)
+        ax.set_xlabel('时间', fontsize=16)
+        ax.set_ylabel(f'零售商{j + 1}库存', fontsize=16)
 
     # 自动调整布局
     plt.subplots_adjust(hspace=0.2, wspace=0.3,top=0.9, bottom=0.1)
@@ -187,7 +208,7 @@ def render_figure_stock(df):
     # 格式化为字符串（默认格式：YYYY-MM-DD）
     date_str = today.strftime("%Y-%m-%d")
     plt.savefig(f"transitions_stock_all_{date_str}.svg",
-                format='svg')
+                format='svg',bbox_inches='tight')
     plt.savefig(f"transitions_stock_all_{date_str}.pdf",
                 format='pdf')
 
@@ -210,8 +231,8 @@ def render_figure_action(df):
                 alpha=.5, label=algo_line_style[i]["label"])
 
     ax.legend()
-    ax.set_xlabel('时间', fontsize=12)
-    ax.set_ylabel('分销商补货量', fontsize=12)
+    ax.set_xlabel('时间', fontsize=16)
+    ax.set_ylabel('分销商补货量', fontsize=16)
 
     # distribution warehouses stocks分销商的库存
     for j in range(num_distribution_warehouse):
@@ -233,8 +254,8 @@ def render_figure_action(df):
 
         # 添加图例
         ax.legend()
-        ax.set_xlabel('时间', fontsize=12)
-        ax.set_ylabel(f'零售商{j + 1}补货量', fontsize=12)
+        ax.set_xlabel('时间', fontsize=16)
+        ax.set_ylabel(f'零售商{j + 1}补货量', fontsize=16)
 
     # 自动调整布局
     plt.subplots_adjust(hspace=0.2, wspace=0.3,top=0.9, bottom=0.1)
@@ -243,7 +264,7 @@ def render_figure_action(df):
     # 格式化为字符串（默认格式：YYYY-MM-DD）
     date_str = today.strftime("%Y-%m-%d")
     plt.savefig(f"transitions_action_all_{date_str}.svg",
-                format='svg')
+                format='svg',bbox_inches='tight')
     plt.savefig(f"transitions_action_all_{date_str}.pdf",
                 format='pdf')
 
@@ -253,7 +274,7 @@ def render_figure_action(df):
 data_frame = pd.read_excel('transitions_state_all_2025-03-18.xlsx')
 #df_len = df.shape[0]
 #change_data(data_frame)
-#render_figure(data_frame)
-render_figure_stock(data_frame)
-render_figure_action(data_frame)
+render_figure(data_frame)
+#render_figure_stock(data_frame)
+#render_figure_action(data_frame)
 
