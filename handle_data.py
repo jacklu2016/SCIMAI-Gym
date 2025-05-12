@@ -51,10 +51,16 @@ def change_data(df):
 argos = ['MA-DFPPO','A3C','PPO','AX']
 num_distribution_warehouse = 3
 algo_line_style = [
-    {'marker': '*', 'linestyle': '-.', 'color': 'black', 'label': 'MA-DFPPO'},
-    {'marker': 'o', 'linestyle': '-', 'color': 'black', 'label': 'A3C'},
-    {'marker': 's', 'linestyle': '--', 'color': 'black', 'label': 'PPO'},
-    {'marker': 'd', 'linestyle': ':', 'color': 'black', 'label': '(s,Q)'}
+    {'marker': '*', 'linestyle': '-.', 'color': '#1F77B4', 'label': 'MA-DFPPO'},
+    {'marker': 'o', 'linestyle': '-', 'color': '#D62728', 'label': 'A3C'},
+    {'marker': 's', 'linestyle': '--', 'color': '#2CA02C', 'label': 'PPO'},
+    {'marker': 'd', 'linestyle': ':', 'color': '#FF7F0E', 'label': '(s,Q)'}
+]
+algo_line_style = [
+    {'marker': '*', 'linestyle': '-.', 'color': '#0000FF', 'label': 'MA-DFPPO'},
+    {'marker': 'o', 'linestyle': '-', 'color': '#FF0000', 'label': 'A3C'},
+    {'marker': 's', 'linestyle': '--', 'color': '#006400', 'label': 'PPO'},
+    {'marker': 'd', 'linestyle': ':', 'color': '#8B008B', 'label': '(s,Q)'}
 ]
 T = 30
 
