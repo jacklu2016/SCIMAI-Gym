@@ -2,6 +2,9 @@ import pandas as pd
 import numpy as np
 import math
 from datetime import datetime
+import matplotlib
+matplotlib.use('TkAgg')  # ✅ 添加这一行
+
 import matplotlib.pyplot as plt
 
 
