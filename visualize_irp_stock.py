@@ -29,7 +29,7 @@ algo_line_style = [
 T = 30
 
 def render_figure(df):
-    fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+    fig, axes = plt.subplots(2, 2, figsize=(12, 10))
     # for retrun_trace in returns_trace_all:
 
     # plt.figure(figsize=(10, 30))
@@ -132,7 +132,18 @@ def render_figure_replenishment(df):
     plt.tight_layout()
     plt.show()
 
+def render_demand(df):
+    plt.figure()
+    plt.plot(range(len(df)),df['demand'])
+    plt.xlabel('时间', fontsize=16)
+    plt.ylabel('药店需求量', fontsize=16)
+    plt.savefig(f"demand.svg",
+                format='svg', bbox_inches='tight')
+
+
 if __name__ == '__main__':
     data_frame = pd.read_excel('MTPPO_experiment.xlsx')
     render_figure(data_frame)
     #render_figure_replenishment(data_frame)
+    render_demand(data_frame)
+
