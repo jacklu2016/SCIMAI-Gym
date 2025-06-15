@@ -54,13 +54,13 @@ algo_line_style = [
     {'marker': '*', 'linestyle': '-.', 'color': '#1F77B4', 'label': 'MA-DFPPO'},
     {'marker': 'o', 'linestyle': '-', 'color': '#D62728', 'label': 'A3C'},
     {'marker': 's', 'linestyle': '--', 'color': '#2CA02C', 'label': 'PPO'},
-    {'marker': 'd', 'linestyle': ':', 'color': '#FF7F0E', 'label': '(s,Q)'}
+    {'marker': 'd', 'linestyle': ':', 'color': '#FF7F0E', 'label': 'GA'}
 ]
 algo_line_style = [
     {'marker': '*', 'linestyle': '-.', 'color': '#0000FF', 'label': 'MA-DFPPO'},
     {'marker': 'o', 'linestyle': '-', 'color': '#FF0000', 'label': 'A3C'},
     {'marker': 's', 'linestyle': '--', 'color': '#006400', 'label': 'PPO'},
-    {'marker': 'd', 'linestyle': ':', 'color': '#8B008B', 'label': '(s,Q)'}
+    {'marker': 'd', 'linestyle': ':', 'color': '#8B008B', 'label': 'GA'}
 ]
 T = 30
 
@@ -276,8 +276,8 @@ def render_figure_action(df):
 
 #读取csv
 #data_frame = pd.read_csv('1P3W_2025-03-15_22-53-58/plots/transitions_state_all_2025-03-16_090639-1.csv')
-#data_frame = pd.read_csv('transitions_state_all_2025-03-18.csv')
-data_frame = pd.read_excel('transitions_state_all_2025-03-24.xlsx')
+#data_frame = pd.read_csv('transitions_state_all_2025-03-24.csv')
+data_frame = pd.read_excel('D:\BaiduSyncdisk\大论文\multi_echelon_inventory.xlsx')
 #df_len = df.shape[0]
 #change_data(data_frame)
 render_figure(data_frame)

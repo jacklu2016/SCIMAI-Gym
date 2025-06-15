@@ -19,55 +19,43 @@ plt.rcParams.update({
 #random_action_f = np.zeros(df_len)
 
 argos = ['GA','DDPG','PPO','MTPPO']
+argos_label = ['GA(INV)','DDPG','ST-PPO-INV','MTPPO']
+kpis = ['stock', 'replenishment', 'cost']
 num_distribution_warehouse = 3
 algo_line_style = [
-    {'marker': 'o', 'linestyle': '-', 'color': 'red', 'label': 'MA-DFPPO'},
-    {'marker': 'o', 'linestyle': '-', 'color': 'blue', 'label': 'A3C'},
-    {'marker': 'o', 'linestyle': '-', 'color': 'green', 'label': 'PPO'},
-    {'marker': 'd', 'linestyle': '-', 'color': 'red', 'label': 'GA'}
+    {'marker': 'o', 'linestyle': '-', 'color': '#1f77b4', 'label': 'MA-DFPPO'},
+    {'marker': 's', 'linestyle': '-', 'color': '#ff7f0e', 'label': 'A3C'},
+    {'marker': '*', 'linestyle': '-', 'color': '#2ca02c', 'label': 'PPO'},
+    {'marker': 'd', 'linestyle': '-', 'color': '#d62728', 'label': 'GA'}
 ]
-T = 30
+T = 90
 
 def render_figure(df):
-    fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+    fig, axes = plt.subplots(3, 4, figsize=(16, 9))
     # for retrun_trace in returns_trace_all:
 
     # plt.figure(figsize=(10, 30))
     fig_no = ['c','d','e','f','g','h']
     # states transitions
 
+    for j in range(3):
+        for i in range(len(argos)):
+            ax = axes[j][i]
+            print(f'j:{j},i:{i}')
+            ax.plot(range(T),
+                    df[f'{argos[i]}_{kpis[j]}'],
+                    color=algo_line_style[i]['color'], marker=algo_line_style[i]['marker'],
+                    linestyle=algo_line_style[i]['linestyle'],
+                    alpha=.5)
 
-    for i in range(len(argos)):
-        ax = axes[i//2][i%2]
-        print(f'i:{i}')
-        ax.plot(range(T),
-                df[f'{argos[i]}_stock'],
-                color=algo_line_style[1]['color'], marker=algo_line_style[1]['marker'],
-                linestyle=algo_line_style[1]['linestyle'],
-                alpha=.5, label='库存')
-        ax.plot(range(T),
-                df[f'demand'],
-                color=algo_line_style[2]['color'], marker=algo_line_style[2]['marker'],
-                linestyle=algo_line_style[2]['linestyle'],
-                alpha=.5, label='需求')
-        ax.plot(range(T),
-                df[f'{argos[i]}'],
-                color=algo_line_style[3]['color'], marker=algo_line_style[3]['marker'],
-                linestyle=algo_line_style[3]['linestyle'],
-                alpha=.5, label='补货量')
+            ax.legend(fontsize=16)
+            ax.set_xlabel('Time Steps', fontsize=16)
+            ax.set_ylabel(f'{kpis[j]}:{argos_label[i]}', fontsize=16)
 
-        ax.legend(fontsize=16)
-        ax.set_xlabel('时间', fontsize=16)
-        ax.set_ylabel('', fontsize=16)
-        ax.set_title(f'{argos[i]}',
-                     y=-0.15,  # 负值下移标题
-                     fontsize=16,
-                     fontweight='bold',
-                     verticalalignment='top')  # 文本顶部对齐坐标轴
     # 自动调整布局
     plt.subplots_adjust(hspace=0.2, wspace=0.3, top=0.9, bottom=0.1)
     plt.tight_layout()
-    plt.savefig(f"irp_stock.svg",
+    plt.savefig(f"mtppo_journal.svg",
                 format='svg', bbox_inches='tight')
 
 def render_figure_stock(df):
@@ -142,7 +130,7 @@ def render_demand(df):
 
 
 if __name__ == '__main__':
-    data_frame = pd.read_excel('MTPPO_experiment.xlsx')
+    data_frame = pd.read_excel('D:\BaiduSyncdisk\VMI+Transportation\MTPPO_experiment.xlsx')
     render_figure(data_frame)
     #render_figure_replenishment(data_frame)
     #render_demand(data_frame)
