@@ -276,8 +276,8 @@ def render_figure_action(df):
 
 #读取csv
 #data_frame = pd.read_csv('1P3W_2025-03-15_22-53-58/plots/transitions_state_all_2025-03-16_090639-1.csv')
-#data_frame = pd.read_csv('transitions_state_all_2025-03-24.csv')
-data_frame = pd.read_excel('D:\BaiduSyncdisk\大论文\multi_echelon_inventory.xlsx')
+data_frame = pd.read_csv('transitions_state_all_lgdxb_2025-07-07.xlsx')
+#data_frame = pd.read_excel('D:\BaiduSyncdisk\大论文\multi_echelon_inventory.xlsx')
 #df_len = df.shape[0]
 #change_data(data_frame)
 render_figure(data_frame)
