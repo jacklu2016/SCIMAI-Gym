@@ -83,8 +83,8 @@ def render_figure(df):
 
     ax.legend(fontsize=16)
     ax.set_xlabel('时间', fontsize=16)
-    ax.set_ylabel('医药批发企业库存', fontsize=16)
-    ax.set_title('（a）医药批发企业库存水平',
+    ax.set_ylabel('分销商库存', fontsize=16)
+    ax.set_title('（a）分销商库存水平',
                  y=-0.15,  # 负值下移标题
                  fontsize=16,
                  fontweight='bold',
@@ -102,8 +102,8 @@ def render_figure(df):
 
     ax.legend(fontsize=16)
     ax.set_xlabel('时间', fontsize=16)
-    ax.set_ylabel('医药批发企业补货量', fontsize=16)
-    ax.set_title('（b）医药批发企业补货量',
+    ax.set_ylabel('分销商补货量', fontsize=16)
+    ax.set_title('（b）分销商补货量',
                  y=-0.15,  # 负值下移标题
                  fontsize=16,
                  fontweight='bold',
@@ -128,9 +128,9 @@ def render_figure(df):
         # 添加图例
         ax.legend(fontsize=16)
         ax.set_xlabel('时间', fontsize=16)
-        ax.set_ylabel(f'药店{j + 1}库存', fontsize=16)
+        ax.set_ylabel(f'零售商{j + 1}库存', fontsize=16)
 
-        ax.set_title(f'（{fig_no[j*2]}）药店{j + 1}库存水平',
+        ax.set_title(f'（{fig_no[j*2]}）零售商{j + 1}库存水平',
                      y=-0.15,  # 负值下移标题
                      fontsize=16,
                      fontweight='bold',
@@ -151,8 +151,8 @@ def render_figure(df):
         # 添加图例
         ax.legend(fontsize=16)
         ax.set_xlabel('时间', fontsize=16)
-        ax.set_ylabel(f'药店{j + 1}补货量', fontsize=16)
-        ax.set_title(f'（{fig_no[j * 2 + 1]}）药店{j + 1}补货量',
+        ax.set_ylabel(f'零售商{j + 1}补货量', fontsize=16)
+        ax.set_title(f'（{fig_no[j * 2 + 1]}）零售商{j + 1}补货量',
                      y=-0.15,  # 负值下移标题
                      fontsize=16,
                      fontweight='bold',
@@ -184,9 +184,9 @@ def render_figure_stock(df):
 
     ax.legend()
     ax.set_xlabel('时间', fontsize=16)
-    ax.set_ylabel('医药批发企业库存', fontsize=16)
+    ax.set_ylabel('分销商库存', fontsize=16)
 
-    # distribution warehouses stocks医药批发企业的库存
+    # distribution warehouses stocks分销商的库存
     for j in range(num_distribution_warehouse):
 
         # ax_row = math.floor(j / 2) + 1
@@ -205,7 +205,7 @@ def render_figure_stock(df):
         # 添加图例
         ax.legend()
         ax.set_xlabel('时间', fontsize=16)
-        ax.set_ylabel(f'药店{j + 1}库存', fontsize=16)
+        ax.set_ylabel(f'零售商{j + 1}库存', fontsize=16)
 
     # 自动调整布局
     plt.subplots_adjust(hspace=0.2, wspace=0.3,top=0.9, bottom=0.1)
@@ -238,9 +238,9 @@ def render_figure_action(df):
 
     ax.legend()
     ax.set_xlabel('时间', fontsize=16)
-    ax.set_ylabel('医药批发企业补货量', fontsize=16)
+    ax.set_ylabel('分销商补货量', fontsize=16)
 
-    # distribution warehouses stocks医药批发企业的库存
+    # distribution warehouses stocks分销商的库存
     for j in range(num_distribution_warehouse):
 
         # ax_row = math.floor(j / 2) + 1
@@ -261,7 +261,7 @@ def render_figure_action(df):
         # 添加图例
         ax.legend()
         ax.set_xlabel('时间', fontsize=16)
-        ax.set_ylabel(f'药店{j + 1}补货量', fontsize=16)
+        ax.set_ylabel(f'零售商{j + 1}补货量', fontsize=16)
 
     # 自动调整布局
     plt.subplots_adjust(hspace=0.2, wspace=0.3,top=0.9, bottom=0.1)
