@@ -48,19 +48,16 @@ def change_data(df):
 
     print('change data end')
 
-argos = ['MA-DFPPO','A3C','PPO','AX']
+argos = ['MA-DFPPO', 'MAPPO', 'MADDPG' ,'A3C','PPO','AX']
 num_distribution_warehouse = 3
+
 algo_line_style = [
-    {'marker': '*', 'linestyle': '-.', 'color': '#1F77B4', 'label': 'MA-DFPPO'},
-    {'marker': 'o', 'linestyle': '-', 'color': '#D62728', 'label': 'A3C'},
-    {'marker': 's', 'linestyle': '--', 'color': '#2CA02C', 'label': 'PPO'},
-    {'marker': 'd', 'linestyle': ':', 'color': '#FF7F0E', 'label': 'GA'}
-]
-algo_line_style = [
-    {'marker': '*', 'linestyle': '-.', 'color': '#0000FF', 'label': 'MA-DFPPO'},
-    {'marker': 'o', 'linestyle': '-', 'color': '#FF0000', 'label': 'A3C'},
-    {'marker': 's', 'linestyle': '--', 'color': '#006400', 'label': 'PPO'},
-    {'marker': 'd', 'linestyle': ':', 'color': '#8B008B', 'label': 'GA'}
+    {'marker': '*', 'linestyle': '-.', 'color': '#000000', 'label': 'MA-DFPPO'},
+    {'marker': '^', 'linestyle': '-', 'color': '#000000', 'label': 'MAPPO'},
+    {'marker': 'v', 'linestyle': '-', 'color': '#000000', 'label': 'MADDPG'},
+    {'marker': 'o', 'linestyle': '-', 'color': '#000000', 'label': 'A3C'},
+    {'marker': 's', 'linestyle': '--', 'color': '#000000', 'label': 'PPO'},
+    {'marker': 'd', 'linestyle': ':', 'color': '#000000', 'label': '(s,Q)'}
 ]
 T = 30
 
@@ -276,7 +273,8 @@ def render_figure_action(df):
 
 #读取csv
 #data_frame = pd.read_csv('1P3W_2025-03-15_22-53-58/plots/transitions_state_all_2025-03-16_090639-1.csv')
-data_frame = pd.read_csv('transitions_state_all_lgdxb_2025-07-07.xlsx')
+
+data_frame = pd.read_excel('transitions_state_all_lgdxb_2025-07-07.xlsx')
 #data_frame = pd.read_excel('D:\BaiduSyncdisk\大论文\multi_echelon_inventory.xlsx')
 #df_len = df.shape[0]
 #change_data(data_frame)
