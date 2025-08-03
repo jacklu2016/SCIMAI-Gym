@@ -8,10 +8,10 @@ rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
 
 
 # Read a pandas DataFrame
-df = pd.read_csv("D:\\BaiduSyncdisk\\大论文\\参考论文\\基于预测的库存管理\\archive\\salesweekly.csv", delimiter=",")
+df = pd.read_csv("D:\\BaiduSyncdisk\\大论文\\参考论文\\基于预测的库存管理\\archive\\salesweekly1.csv", delimiter=",")
 
 # Create a TimeSeries, specifying the time and value columns
-series = TimeSeries.from_dataframe(df, "datum", "M01AB")
+series = TimeSeries.from_dataframe(df, "datum", "M01AB",fill_missing_dates=True)
 
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
@@ -29,7 +29,9 @@ for i in range(5):
     ax_row = i // 2
     ax_col = i % 2
     print(ax_row, ax_col)
-    ax[ax_row, ax_col].plot(series[-60:].to_series(), label="实际值", color='#005BAA')
+    real_data = series[-44:].to_series()
+    #real_data.index = real_data.index - pd.Timedelta(days=1329)
+    ax[ax_row, ax_col].plot(series[-44:].to_series(), label="实际值", color='#005BAA')
     ax[ax_row, ax_col].plot(predicts[f'predict_{algos[i]["name"]}'], label=f"预测值({algos[i]['name']})", color='red')
     #df['index_col'] = df.index
     ax[ax_row, ax_col].xaxis.set_major_locator(mdates.WeekdayLocator(byweekday=mdates.MO))  # 每周一
