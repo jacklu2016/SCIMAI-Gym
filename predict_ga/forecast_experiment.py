@@ -1,25 +1,13 @@
-from darts.datasets import WeatherDataset
-from darts.models import RNNModel
-from darts.metrics import rmse, mae, mape
-from pandas.core.computation.expr import intersection
+import pandas as pd
+from darts import TimeSeries
+from matplotlib import rcParams
+import matplotlib.pyplot as plt
 
-series = WeatherDataset().load()
-# predicting atmospheric pressure
-target = series['p (mbar)'][:100]
-# optionally, use future temperatures (pretending this component is a forecast)
-future_cov = series['T (degC)'][:106]
-# `training_length` > `input_chunk_length` to mimic inference constraints
-model = RNNModel(
-    model="LSTM",
-    input_chunk_length=6,
-    training_length=18,
-    n_epochs=1000,
-)
-model.fit(target, future_covariates=future_cov)
-pred = model.predict(6)
-print(pred.values())
+# 设置中文字体
+rcParams['font.sans-serif'] = ['Microsoft YaHei']  # 黑体
+rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
 
-mae = mae(future_cov[-6:],pred,intersect=True)
-rmse = rmse(future_cov,pred)
-mape = mape(future_cov,pred)
-print(f'KG-CNNLSTM:mae:{mae},rmse:{rmse},mape:{mape}')
+df = pd.read_csv('Ibuprofen-400-group.csv')
+
+plt.plot(df['Date'],df['QTY'])
+plt.show()
