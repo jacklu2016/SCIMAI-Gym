@@ -15,8 +15,27 @@ df1['Date'] = pd.to_datetime(df['TGL'], format='%d/%m/%Y')
 
 df1.sort_values(by=['Date'], ascending=[True], inplace=True)
 
-df_grouped = df1.groupby('Date')['QTY'].sum().reset_index()
-
+df_grouped = df1
+df_grouped['unique_id'] = df_grouped.index
+df_grouped['ds'] = df_grouped.index
+df_grouped['y'] = df_grouped['QTY']
+df_grouped = df_grouped.filter(items=['unique_id', 'ds', 'y'])
 print(df_grouped)
 
-df_grouped.to_csv('Ibuprofen-400-group.csv', index=False)
+df_grouped.to_csv('Ibuprofen-400-day.csv', index=False)
+
+
+# df['date'] = pd.to_datetime(df['TGL'], format='%d/%m/%Y')
+#
+# df['year_week'] = df['date'].dt.strftime('%G-W%V')  # ISO 标准格式
+#
+# df.sort_values(by=['year_week'], ascending=[True], inplace=True)
+#
+# df_grouped = df.groupby('year_week')['QTY'].sum().reset_index()
+# df_grouped['unique_id'] = df_grouped.index
+# df_grouped['ds'] = df_grouped.index
+# df_grouped['y'] = df_grouped['QTY']
+# df_grouped = df_grouped.filter(items=['unique_id', 'ds', 'y'])
+# print(df_grouped)
+#
+# df_grouped.to_csv('Ibuprofen-400-week.csv', index=False)
