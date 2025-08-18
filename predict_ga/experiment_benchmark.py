@@ -12,9 +12,26 @@ from utilsforecast.evaluation import evaluate
 
 from neuralforecast import NeuralForecast
 from neuralforecast.models import KAN, MLP, NBEATS, NHITS
+from utilsforecast.plotting import plot_series
+from neuralforecast.auto import AutoRNN
+from neuralforecast.auto import AutoLSTM
+from neuralforecast.auto import AutoFEDformer
 
 results = []
 
+def get_dataset_1():
+    csv = 'https://raw.githubusercontent.com/Naren8520/Serie-de-tiempo-con-Machine-Learning/main/Data/candy_production.csv'
+    df = pd.read_csv(csv)
+    df["unique_id"] = "1"
+    df["observation_date"] = df.index
+    df.columns = ["ds", "y", "unique_id"]
+    return df
+
+def get_dataset_phmarcery():
+    csv = 'sale_week.csv'
+    df = pd.read_csv(csv)
+    df.columns = ["unique_id", "ds", "y"]
+    return df
 
 def get_dataset(name):
     Y_df, horizon, freq = pd.DataFrame(), 0, 0
@@ -64,6 +81,8 @@ def get_dataset(name):
     return Y_df, horizon, freq
 
 
+train_data_length = 5000
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-dataset", "--dataset", type=str)
@@ -72,10 +91,12 @@ if __name__ == "__main__":
     dataset = args.dataset
 
     Y_df, horizon, freq = get_dataset(dataset)
+    #Y_df = get_dataset_phmarcery()
+    #horizon, freq = 18, 1
 
-    print(Y_df)
-    #Y_df = Y_df[Y_df['unique_id'].isin(['M1', 'M2','M3','M4','M5', 'M6','M7','M8','M9', 'M10','M11','M12','M13', 'M14','M15','M16'])]
-    #Y_df = Y_df[:10000]
+    print(Y_df.head())
+    if train_data_length > 0 :
+        Y_df = Y_df[:train_data_length]
     test_df = Y_df.groupby('unique_id').tail(horizon)
     train_df = Y_df.drop(test_df.index).reset_index(drop=True)
 
@@ -87,8 +108,18 @@ if __name__ == "__main__":
     nhits_model = NHITS(input_size=2 * horizon, h=horizon, scaler_type='robust', max_steps=1000,
                         early_stop_patience_steps=3)
 
-    MODELS = [kan_model, mlp_model, nbeats_model, nhits_model]
-    MODEL_NAMES = ['KAN', 'MLP', 'NBEATS', 'NHITS']
+    my_config = AutoRNN.get_default_config(h=12, backend='optuna')
+    autoRNN = AutoRNN(h=12, config=my_config, backend='optuna', num_samples=1, cpus=1)
+
+    my_config_LSTM = AutoLSTM.get_default_config(h=12, backend='optuna')
+    autoLSTM = AutoLSTM(h=12, config=my_config_LSTM, backend='optuna', num_samples=1, cpus=1)
+
+    my_config_FEDformer = AutoFEDformer.get_default_config(h=12, backend='optuna')
+    fedFormer = AutoFEDformer(h=12, config=my_config_FEDformer, backend='optuna', num_samples=1, cpus=1)
+
+    MODELS = [kan_model, mlp_model, nbeats_model, nhits_model, autoRNN, autoLSTM, fedFormer]
+
+    MODEL_NAMES = ['KAN', 'MLP', 'NBEATS', 'NHITS', 'AutoRNN', 'AutoLSTM', 'fedFormer']
 
     for i, model in enumerate(MODELS):
         nf = NeuralForecast(models=[model], freq=freq)
@@ -104,6 +135,7 @@ if __name__ == "__main__":
         preds = preds.reset_index(drop=True)
         test_df = pd.merge(test_df, preds, 'left', ['ds', 'unique_id'])
 
+        print(test_df)
         evaluation = evaluate(
             test_df,
             metrics=[mae, smape],
@@ -115,6 +147,9 @@ if __name__ == "__main__":
 
         model_mae = evaluation[f"{MODEL_NAMES[i]}"][0]
         model_smape = evaluation[f"{MODEL_NAMES[i]}"][1]
+
+        #Y_hat_insample = nf.predict_insample(step_size=horizon)
+        #plot_series(forecasts_df=Y_hat_insample.drop(columns='cutoff'))
 
         results.append([dataset, MODEL_NAMES[i], round(model_mae, 0), round(model_smape * 100, 2), elapsed_time])
 

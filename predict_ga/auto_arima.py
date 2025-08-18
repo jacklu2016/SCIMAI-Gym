@@ -47,5 +47,3 @@ print(evaluate(
     metrics=[ufl.mae, ufl.mape, partial(ufl.mase, seasonality=season_length), ufl.rmse, ufl.smape],
     train_df=Y_train_df,
 ))
-
-
