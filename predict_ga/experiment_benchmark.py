@@ -31,7 +31,8 @@ def get_dataset_phmarcery():
     csv = 'sale_week.csv'
     df = pd.read_csv(csv)
     df.columns = ["unique_id", "ds", "y"]
-    df['ds'] = pd.to_datetime(df['ds'], errors='ignore')
+    #df['ds'] = pd.to_datetime(df['ds'], errors='ignore')
+    df['ds'] = df.groupby('unique_id').cumcount() + 1
     return df
 
 def get_dataset(name):
@@ -93,7 +94,7 @@ if __name__ == "__main__":
 
     #Y_df, horizon, freq = get_dataset(dataset)
     Y_df = get_dataset_phmarcery()
-    horizon, freq = 12, 'W'
+    horizon, freq = 6, 1
 
     print(Y_df.head())
     if train_data_length > 0 :
@@ -118,8 +119,8 @@ if __name__ == "__main__":
     my_config_FEDformer = AutoFEDformer.get_default_config(h=6, backend='optuna')
     fedFormer = AutoFEDformer(h=6, config=my_config_FEDformer, backend='optuna', num_samples=1, cpus=1)
 
-    MODELS = [kan_model, mlp_model, nbeats_model, nhits_model, fedFormer]
-    #MODELS = [autoRNN]
+    #MODELS = [kan_model, mlp_model, nbeats_model, nhits_model, fedFormer]
+    MODELS = [kan_model]
 
     MODEL_NAMES = ['KAN', 'MLP', 'NBEATS', 'NHITS', 'AutoFEDformer']
 
