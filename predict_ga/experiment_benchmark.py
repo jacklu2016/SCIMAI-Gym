@@ -31,6 +31,7 @@ def get_dataset_phmarcery():
     csv = 'sale_week.csv'
     df = pd.read_csv(csv)
     df.columns = ["unique_id", "ds", "y"]
+    df['ds'] = pd.to_datetime(df['ds'], errors='ignore')
     return df
 
 def get_dataset(name):
@@ -81,7 +82,7 @@ def get_dataset(name):
     return Y_df, horizon, freq
 
 
-train_data_length = 5000
+train_data_length = -1
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -90,9 +91,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
     dataset = args.dataset
 
-    Y_df, horizon, freq = get_dataset(dataset)
-    #Y_df = get_dataset_phmarcery()
-    #horizon, freq = 18, 1
+    #Y_df, horizon, freq = get_dataset(dataset)
+    Y_df = get_dataset_phmarcery()
+    horizon, freq = 12, 'W'
 
     print(Y_df.head())
     if train_data_length > 0 :
@@ -108,18 +109,19 @@ if __name__ == "__main__":
     nhits_model = NHITS(input_size=2 * horizon, h=horizon, scaler_type='robust', max_steps=1000,
                         early_stop_patience_steps=3)
 
-    my_config = AutoRNN.get_default_config(h=12, backend='optuna')
-    autoRNN = AutoRNN(h=12, config=my_config, backend='optuna', num_samples=1, cpus=1)
+    my_config = AutoRNN.get_default_config(h=4, backend='optuna')
+    autoRNN = AutoRNN(h=4, config=my_config, backend='optuna', num_samples=1, cpus=1)
 
-    my_config_LSTM = AutoLSTM.get_default_config(h=12, backend='optuna')
-    autoLSTM = AutoLSTM(h=12, config=my_config_LSTM, backend='optuna', num_samples=1, cpus=1)
+    my_config_LSTM = AutoLSTM.get_default_config(h=4, backend='optuna')
+    autoLSTM = AutoLSTM(h=4, config=my_config_LSTM, backend='optuna', num_samples=1, cpus=1)
 
-    my_config_FEDformer = AutoFEDformer.get_default_config(h=12, backend='optuna')
-    fedFormer = AutoFEDformer(h=12, config=my_config_FEDformer, backend='optuna', num_samples=1, cpus=1)
+    my_config_FEDformer = AutoFEDformer.get_default_config(h=6, backend='optuna')
+    fedFormer = AutoFEDformer(h=6, config=my_config_FEDformer, backend='optuna', num_samples=1, cpus=1)
 
-    MODELS = [kan_model, mlp_model, nbeats_model, nhits_model, autoRNN, autoLSTM, fedFormer]
+    MODELS = [kan_model, mlp_model, nbeats_model, nhits_model, fedFormer]
+    #MODELS = [autoRNN]
 
-    MODEL_NAMES = ['KAN', 'MLP', 'NBEATS', 'NHITS', 'AutoRNN', 'AutoLSTM', 'fedFormer']
+    MODEL_NAMES = ['KAN', 'MLP', 'NBEATS', 'NHITS', 'AutoFEDformer']
 
     for i, model in enumerate(MODELS):
         nf = NeuralForecast(models=[model], freq=freq)
@@ -156,3 +158,4 @@ if __name__ == "__main__":
     results_df = pd.DataFrame(data=results, columns=['dataset', 'model', 'mae', 'smape', 'time'])
     os.makedirs('./results', exist_ok=True)
     results_df.to_csv(f'./results/{dataset}_results_KANtuned.csv', header=True, index=False)
+    test_df.to_csv(f'./results/{dataset}_test_results.csv', header=True, index=False)
