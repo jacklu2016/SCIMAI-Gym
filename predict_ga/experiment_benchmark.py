@@ -16,7 +16,9 @@ from utilsforecast.plotting import plot_series
 from neuralforecast.auto import AutoRNN
 from neuralforecast.auto import AutoLSTM
 from neuralforecast.auto import AutoFEDformer
-
+from neuralforecast.auto import AutoInformer
+from neuralforecast.auto import AutoDeepAR
+from neuralforecast.auto import AutoDilatedRNN
 results = []
 
 def get_dataset_1():
@@ -27,10 +29,20 @@ def get_dataset_1():
     df.columns = ["ds", "y", "unique_id"]
     return df
 
-def get_dataset_phmarcery():
+def get_dataset_phmarcery_week():
     csv = 'sale_week.csv'
     df = pd.read_csv(csv)
     df.columns = ["unique_id", "ds", "y"]
+    df = df.groupby('unique_id').filter(lambda x: len(x) >= 50)
+    #df['ds'] = pd.to_datetime(df['ds'], errors='ignore')
+    df['ds'] = df.groupby('unique_id').cumcount() + 1
+    return df
+
+def get_dataset_phmarcery_day():
+    csv = 'sale_day.csv'
+    df = pd.read_csv(csv)
+    df.columns = ["unique_id", "ds", "y"]
+    df = df.groupby('unique_id').filter(lambda x: len(x) >= 80)
     #df['ds'] = pd.to_datetime(df['ds'], errors='ignore')
     df['ds'] = df.groupby('unique_id').cumcount() + 1
     return df
@@ -93,8 +105,8 @@ if __name__ == "__main__":
     dataset = args.dataset
 
     #Y_df, horizon, freq = get_dataset(dataset)
-    Y_df = get_dataset_phmarcery()
-    horizon, freq = 6, 1
+    Y_df = get_dataset_phmarcery_week()
+    horizon, freq = 8, 1
 
     print(Y_df.head())
     if train_data_length > 0 :
@@ -110,19 +122,29 @@ if __name__ == "__main__":
     nhits_model = NHITS(input_size=2 * horizon, h=horizon, scaler_type='robust', max_steps=1000,
                         early_stop_patience_steps=3)
 
-    my_config = AutoRNN.get_default_config(h=4, backend='optuna')
-    autoRNN = AutoRNN(h=4, config=my_config, backend='optuna', num_samples=1, cpus=1)
+    my_config = AutoRNN.get_default_config(h=horizon, backend='optuna')
+    autoRNN = AutoRNN(h=horizon, config=my_config, backend='optuna', num_samples=1, cpus=1)
 
-    my_config_LSTM = AutoLSTM.get_default_config(h=4, backend='optuna')
-    autoLSTM = AutoLSTM(h=4, config=my_config_LSTM, backend='optuna', num_samples=1, cpus=1)
+    my_config_LSTM = AutoLSTM.get_default_config(h=horizon, backend='optuna')
+    autoLSTM = AutoLSTM(h=horizon, config=my_config_LSTM, backend='optuna', num_samples=1, cpus=1)
 
-    my_config_FEDformer = AutoFEDformer.get_default_config(h=6, backend='optuna')
-    fedFormer = AutoFEDformer(h=6, config=my_config_FEDformer, backend='optuna', num_samples=1, cpus=1)
+    my_config_AutoDilatedRNN = AutoDilatedRNN.get_default_config(h=12, backend='optuna')
+    def my_config_new(trial):
+        config = {**my_config_AutoDilatedRNN(trial)}
+        config.update({'max_steps': 1, 'val_check_steps': 1, 'input_size': -1, 'encoder_hidden_size': 8})
+        return config
+    model_AutoDilatedRNN = AutoDilatedRNN(h=horizon, config=my_config_new, backend='optuna', num_samples=1, cpus=1)
 
-    #MODELS = [kan_model, mlp_model, nbeats_model, nhits_model, fedFormer]
-    MODELS = [kan_model]
+    my_config_informer = AutoInformer.get_default_config(h=horizon, backend='optuna')
+    AutoInformer = AutoInformer(h=horizon, config=my_config_informer, backend='optuna', num_samples=1, cpus=1)
 
-    MODEL_NAMES = ['KAN', 'MLP', 'NBEATS', 'NHITS', 'AutoFEDformer']
+    my_config_FEDformer = AutoFEDformer.get_default_config(h=horizon, backend='optuna')
+    fedFormer = AutoFEDformer(h=horizon, config=my_config_FEDformer, backend='optuna', num_samples=1, cpus=1)
+
+    MODELS = [kan_model, mlp_model, nbeats_model, nhits_model,autoRNN, AutoInformer, fedFormer]
+    MODEL_NAMES = ['KAN', 'MLP', 'NBEATS', 'NHITS', 'AutoRNN', 'AutoInformer','AutoFEDformer']
+    MODELS = [model_AutoDilatedRNN, fedFormer]
+    MODEL_NAMES = ['AutoDilatedRNN', 'AutoFEDformer']
 
     for i, model in enumerate(MODELS):
         nf = NeuralForecast(models=[model], freq=freq)

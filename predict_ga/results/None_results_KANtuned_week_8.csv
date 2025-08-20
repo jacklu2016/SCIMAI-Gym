@@ -1,0 +1,8 @@
+dataset,model,mae,smape,time
+,KAN,129.0,25.05,175.0
+,MLP,135.0,25.57,32.0
+,NBEATS,164.0,27.93,67.0
+,NHITS,150.0,27.57,80.0
+,AutoRNN,123.0,23.85,213.0
+,AutoInformer,127.0,24.14,444.0
+,AutoFEDformer,487.0,60.29,420.0

@@ -1,0 +1,3 @@
+dataset,model,mae,smape,time
+,AutoDilatedRNN,124.0,14.66,1.0
+,AutoFEDformer,134.0,24.8,461.0
