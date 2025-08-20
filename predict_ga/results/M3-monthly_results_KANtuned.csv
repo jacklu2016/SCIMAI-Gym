@@ -1,0 +1,2 @@
+dataset,model,mae,smape,time
+M3-monthly,KAN,105.0,29.56,372.0
