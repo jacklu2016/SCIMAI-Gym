@@ -76,6 +76,37 @@ def ml():
     evaluation = evaluation.drop(['unique_id'], axis=1).groupby('metric').mean().reset_index()
     evaluation.to_csv('./results/evaluation_ml.csv', header=True, index=False)
 
+from functools import reduce
+def plot_pred_result_algos():
+    #arima
+    arima_pred = pd.read_csv('results/test_df_arima.csv')
+    arima_pred['ds'] = arima_pred.groupby('unique_id').cumcount() + 1
+    arima_pred = arima_pred.groupby('ds')[['AutoARIMA']].sum().reset_index()
+    print(arima_pred)
+
+    ml_pred = pd.read_csv('results/test_df_ml.csv')
+    ml_pred['ds'] = ml_pred.groupby('unique_id').cumcount() + 1
+    ml_pred = ml_pred.groupby('ds')[['xgboost','rf']].sum().reset_index()
+    print(ml_pred)
+
+    best_pred = pd.read_csv('results/None_test_results.csv')
+    best_pred['ds'] = best_pred.groupby('unique_id').cumcount() + 1
+    best_pred = best_pred.groupby('ds')[['AutoDilatedRNN', 'AutoFEDformer']].sum().reset_index()
+    print(best_pred)
+
+    neural_pred = pd.read_csv('results/None_test_results_week_8.csv')
+    neural_pred['ds'] = neural_pred.groupby('unique_id').cumcount() + 1
+    neural_pred = neural_pred.groupby('ds')[['KAN', 'MLP','NBEATS','NHITS','AutoRNN','AutoInformer']].sum().reset_index()
+    print(neural_pred)
+
+    merged_df = reduce(
+        lambda left, right: pd.merge(left, right, on='ds', how='outer'),
+        [arima_pred, ml_pred, best_pred, neural_pred]
+    )
+
+    print(merged_df)
+
 if __name__ == '__main__':
     #arima()
-    ml()
+    #ml()
+    plot_pred_result_algos()
