@@ -3,9 +3,11 @@ import time
 import argparse
 
 import pandas as pd
+from darts.models import NBEATSModel
 
 from datasetsforecast.m3 import M3
 from datasetsforecast.m4 import M4
+from sklearn.utils.validation import validate_data
 
 from utilsforecast.losses import mae, smape
 from utilsforecast.evaluation import evaluate
@@ -19,6 +21,7 @@ from neuralforecast.auto import AutoFEDformer
 from neuralforecast.auto import AutoInformer
 from neuralforecast.auto import AutoDeepAR
 from neuralforecast.auto import AutoDilatedRNN
+from loss_logger import LossLogger
 results = []
 
 def get_dataset_1():
@@ -97,6 +100,7 @@ def get_dataset(name):
 
 train_data_length = -1
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-dataset", "--dataset", type=str)
@@ -114,37 +118,62 @@ if __name__ == "__main__":
     test_df = Y_df.groupby('unique_id').tail(horizon)
     train_df = Y_df.drop(test_df.index).reset_index(drop=True)
 
-    kan_model = KAN(input_size=2 * horizon, h=horizon, scaler_type='robust', early_stop_patience_steps=3)
+    kan_loss_logger = LossLogger()
+    kan_model = KAN(input_size=2 * horizon, h=horizon, scaler_type='robust', early_stop_patience_steps=3, callbacks=[kan_loss_logger])
+    mlp_loss_logger = LossLogger()
     mlp_model = MLP(input_size=2 * horizon, h=horizon, scaler_type='robust', max_steps=1000,
-                    early_stop_patience_steps=3)
+                    early_stop_patience_steps=3, callbacks=[mlp_loss_logger])
+    nbeats_loss_logger = LossLogger()
     nbeats_model = NBEATS(input_size=2 * horizon, h=horizon, scaler_type='robust', max_steps=1000,
-                          early_stop_patience_steps=3)
+                          early_stop_patience_steps=3, callbacks=[nbeats_loss_logger])
+
+    nhits_loss_logger = LossLogger()
     nhits_model = NHITS(input_size=2 * horizon, h=horizon, scaler_type='robust', max_steps=1000,
-                        early_stop_patience_steps=3)
+                        early_stop_patience_steps=3, callbacks=[nhits_loss_logger])
 
     my_config = AutoRNN.get_default_config(h=horizon, backend='optuna')
-    autoRNN = AutoRNN(h=horizon, config=my_config, backend='optuna', num_samples=1, cpus=1)
+    autornn_loss_logger = LossLogger()
+    autoRNN = AutoRNN(h=horizon, config=my_config, backend='optuna', num_samples=1, cpus=1
+                      )
 
     my_config_LSTM = AutoLSTM.get_default_config(h=horizon, backend='optuna')
-    autoLSTM = AutoLSTM(h=horizon, config=my_config_LSTM, backend='optuna', num_samples=1, cpus=1)
+    autoLstm_loss_logger = LossLogger()
+    autoLSTM = AutoLSTM(h=horizon, config=my_config_LSTM, backend='optuna', num_samples=1, cpus=1
+                        )
 
     my_config_AutoDilatedRNN = AutoDilatedRNN.get_default_config(h=12, backend='optuna')
     def my_config_new(trial):
         config = {**my_config_AutoDilatedRNN(trial)}
         config.update({'max_steps': 1, 'val_check_steps': 1, 'input_size': -1, 'encoder_hidden_size': 8})
         return config
-    model_AutoDilatedRNN = AutoDilatedRNN(h=horizon, config=my_config_new, backend='optuna', num_samples=1, cpus=1)
+
+    autoDilatedRNN_loss_logger = LossLogger()
+    model_AutoDilatedRNN = AutoDilatedRNN(h=horizon, config=my_config_new, backend='optuna', num_samples=1, cpus=1
+                                          )
 
     my_config_informer = AutoInformer.get_default_config(h=horizon, backend='optuna')
-    AutoInformer = AutoInformer(h=horizon, config=my_config_informer, backend='optuna', num_samples=1, cpus=1)
+    autoInformer_loss_logger = LossLogger()
+    AutoInformer = AutoInformer(h=horizon, config=my_config_informer, backend='optuna', num_samples=1, cpus=1
+                                )
 
     my_config_FEDformer = AutoFEDformer.get_default_config(h=horizon, backend='optuna')
-    fedFormer = AutoFEDformer(h=horizon, config=my_config_FEDformer, backend='optuna', num_samples=1, cpus=1)
+    autofedFormer_loss_logger = LossLogger()
+    fedFormer = AutoFEDformer(h=horizon, config=my_config_FEDformer, backend='optuna', num_samples=1, cpus=1
+                              )
 
+    #MODELS = [kan_model, mlp_model, nbeats_model, nhits_model,autoRNN, AutoInformer, fedFormer]
     MODELS = [kan_model, mlp_model, nbeats_model, nhits_model,autoRNN, AutoInformer, fedFormer]
-    MODEL_NAMES = ['KAN', 'MLP', 'NBEATS', 'NHITS', 'AutoRNN', 'AutoInformer','AutoFEDformer']
-    MODELS = [model_AutoDilatedRNN, fedFormer]
-    MODEL_NAMES = ['AutoDilatedRNN', 'AutoFEDformer']
+    #MODEL_NAMES = ['KAN', 'MLP', 'NBEATS', 'NHITS', 'AutoRNN', 'AutoDilatedRNN', 'AutoInformer', 'AutoFEDformer']
+    MODEL_NAMES = ['KAN', 'MLP', 'NBEATS', 'NHITS', 'AutoRNN', 'AutoInformer', 'AutoFEDformer']
+    model_loss = {'KAN':kan_loss_logger,'MLP':mlp_loss_logger,
+                    'NBEATS':nbeats_loss_logger,
+                    'NHITS':nhits_loss_logger,
+
+                    'AutoDilatedRNN':autoDilatedRNN_loss_logger,
+                    'AutoInformer':autoInformer_loss_logger,
+                    'AutoFEDformer':autofedFormer_loss_logger,}
+    #MODELS = [AutoInformer, fedFormer]
+    #MODEL_NAMES = ['AutoInformer', 'AutoFEDformer']
 
     for i, model in enumerate(MODELS):
         nf = NeuralForecast(models=[model], freq=freq)
@@ -178,7 +207,16 @@ if __name__ == "__main__":
 
         results.append([dataset, MODEL_NAMES[i], round(model_mae, 0), round(model_smape * 100, 2), elapsed_time])
 
+    print(kan_loss_logger.train_loss)
+    # all_model_loss = pd.DataFrame(columns=MODEL_NAMES)
+    # for i in MODEL_NAMES:
+    #     all_model_loss[i] = model_loss[i].train_loss
+
+    from datetime import date
+    today = date.today().strftime("%Y-%m-%d")
     results_df = pd.DataFrame(data=results, columns=['dataset', 'model', 'mae', 'smape', 'time'])
     os.makedirs('./results', exist_ok=True)
-    results_df.to_csv(f'./results/{dataset}_results_KANtuned.csv', header=True, index=False)
-    test_df.to_csv(f'./results/{dataset}_test_results.csv', header=True, index=False)
+    
+    results_df.to_csv(f'./results/{dataset}_results_KANtuned_{today}.csv', header=True, index=False)
+    test_df.to_csv(f'./results/{dataset}_test_results_{today}.csv', header=True, index=False)
+    #all_model_loss.to_csv(f'./results/{dataset}_loss_{today}.csv', header=True, index=False)
