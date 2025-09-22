@@ -24,7 +24,7 @@ def get_dataset_phmarcery_week():
 
 
 horizon = 8
-epochs = 200
+epochs = 500
 nbeats_loss_logger = LossLogger()
 Y_df = get_dataset_phmarcery_week()
 test_df = Y_df.groupby('unique_id').tail(horizon)
