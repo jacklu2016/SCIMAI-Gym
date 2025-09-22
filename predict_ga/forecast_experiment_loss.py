@@ -1,7 +1,5 @@
 from darts.datasets import WeatherDataset
-from darts.models import RNNModel, NHiTSModel
-from darts.metrics import rmse, mae, mape
-from pandas.core.computation.expr import intersection
+
 from loss_logger import LossLogger
 from darts.models import NBEATSModel,NHiTSModel,RNNModel,TransformerModel
 import pandas as pd
@@ -26,6 +24,7 @@ def get_dataset_phmarcery_week():
 
 
 horizon = 8
+epochs = 200
 nbeats_loss_logger = LossLogger()
 Y_df = get_dataset_phmarcery_week()
 test_df = Y_df.groupby('unique_id').tail(horizon)
@@ -35,50 +34,48 @@ print(train_df)
 train_ts = TimeSeries.from_dataframe(train_df)
 nbeats_model = NBEATSModel(input_chunk_length=2 * horizon,
                     output_chunk_length = 2,
-                    n_epochs=400,
+                    n_epochs=epochs,
                     pl_trainer_kwargs={"callbacks": [nbeats_loss_logger]})
 
 nbeats_model.fit(train_ts)
+all_model_loss = pd.DataFrame(columns=['SVR','XGBOOST','RNN','CNN-LSTM','NBEATS','KG-GCN-LSTM'])
+all_model_loss['SVR'] = nbeats_loss_logger.train_loss
+from datetime import date
+today = date.today().strftime("%Y-%m-%d")
+all_model_loss.to_csv(f'./results/loss_{today}.csv', header=True, index=False)
 
 nhits_loss_logger = LossLogger()
 nhits_model = NHiTSModel(input_chunk_length=2 * horizon,
                     output_chunk_length = 2,
-                    n_epochs=400,
+                    n_epochs=epochs,
                     pl_trainer_kwargs={"callbacks": [nhits_loss_logger]})
 
 nhits_model.fit(train_ts)
+all_model_loss['XGBOOST'] = nhits_loss_logger.train_loss
+all_model_loss.to_csv(f'./results/loss_{today}.csv', header=True, index=False)
 
 rnn_loss_logger = LossLogger()
 rnn = RNNModel(
     model="LSTM",
     input_chunk_length=6,
     training_length=18,
-    n_epochs=400,
+    n_epochs=epochs,
     pl_trainer_kwargs={"callbacks": [rnn_loss_logger]}
 )
 rnn.fit(train_ts)
+all_model_loss['RNN'] = rnn_loss_logger.train_loss
+all_model_loss.to_csv(f'./results/loss_{today}.csv', header=True, index=False)
 
 trans_loss_logger = LossLogger()
 trans_model = TransformerModel(input_chunk_length=2 * horizon,
                     output_chunk_length = 2,
-                    n_epochs=400,
-                    pl_trainer_kwargs={"callbacks": [trans_loss_logger]}
-                               ,nhead=4
-                               )
+                    n_epochs=epochs,
+                    pl_trainer_kwargs={"callbacks": [trans_loss_logger]}, nhead=4)
 
 trans_model.fit(train_ts)
-
-all_model_loss = pd.DataFrame(columns=['SVR','XGBOOST','RNN','CNN-LSTM','NBEATS','KG-GCN-LSTM'])
-all_model_loss['SVR'] = nbeats_loss_logger.train_loss
-all_model_loss['XGBOOST'] = nhits_loss_logger.train_loss
-all_model_loss['RNN'] = rnn_loss_logger.train_loss
-all_model_loss['CNN-LSTM'] = trans_loss_logger.train_loss
-all_model_loss['NBEATS'] = nbeats_loss_logger.train_loss
-all_model_loss['KG-GCN-LSTM'] = nbeats_loss_logger.train_loss
-
-from datetime import date
-today = date.today().strftime("%Y-%m-%d")
+all_model_loss['KG-CNN-LSTM'] = trans_loss_logger.train_loss
 all_model_loss.to_csv(f'./results/loss_{today}.csv', header=True, index=False)
+
 
 # mae = mae(future_cov[-6:],pred,intersect=True)
 # rmse = rmse(future_cov,pred)
