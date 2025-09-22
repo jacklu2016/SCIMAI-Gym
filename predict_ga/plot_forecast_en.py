@@ -127,8 +127,9 @@ def plot_pred_result_algos(algo_array, exp_type):
             ax = axes[math.floor(i/4), i % 4]
             ax.plot(train_dataset['ds'], train_dataset['y'], label='True')
             ax.plot(merged_df['ds'], merged_df[algos[i]], label=MODEL_NAMES[algos[i]])
-            ax.legend(prop={'family': 'SimHei', 'size': 14})
-            ax.set_xlabel('week')
+            ax.legend(prop={'family': 'SimHei', 'size': 16})
+            ax.set_xlabel('week',  fontsize=16)
+
         # 设置为每周一刻度，显示ISO周编号
         axes[1, 3].axis('off')
         plt.tight_layout()
@@ -148,8 +149,8 @@ def plot_pred_result_algos(algo_array, exp_type):
             #     ax = axes[math.floor((i-9) / 2), ((i-9)) % 2]
             ax.plot(train_dataset['ds'], train_dataset['y'], label='True')
             ax.plot(merged_df['ds'], merged_df[algos[i]], label=MODEL_NAMES[algos[i]])
-            ax.legend(prop={'family': 'SimHei', 'size': 14})
-            ax.set_xlabel('week')
+            ax.legend(prop={'family': 'SimHei', 'size': 16})
+            ax.set_xlabel('week',  fontsize=16)
             ax_index = ax_index + 1
         # 设置为每周一刻度，显示ISO周编号
 
@@ -161,7 +162,7 @@ def plot_pred_result_algos(algo_array, exp_type):
 if __name__ == '__main__':
     #arima()
     #ml()
-    #plot_pred_result_algos([0, 1, 2, 3, 4, 5, 6])
-    #plot_pred_result_algos([7, 8, 9], 'pool')
-    #plot_pred_result_algos([10, 11, 12], 'embbeding')
+    plot_pred_result_algos([0, 1, 2, 3, 4, 5, 6],  'baseline')
+    plot_pred_result_algos([7, 8, 9], 'pool')
+    plot_pred_result_algos([10, 11, 12], 'embbeding')
     plot_pred_result_algos([6, 13, 14], 'ablation')
