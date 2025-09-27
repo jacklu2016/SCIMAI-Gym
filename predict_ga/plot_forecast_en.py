@@ -121,7 +121,7 @@ def plot_pred_result_algos(algo_array, exp_type):
              'KAN', 'MLP']
 
     if len(algo_array) > 6:
-        fig, axes = plt.subplots(2, 4, figsize=(20, 10))
+        fig, axes = plt.subplots(2, 4, figsize=(20, 9))
         fig.tight_layout(pad=3.0)  # 调整子图间距
         for i in algo_array:
             ax = axes[math.floor(i/4), i % 4]
@@ -163,6 +163,6 @@ if __name__ == '__main__':
     #arima()
     #ml()
     plot_pred_result_algos([0, 1, 2, 3, 4, 5, 6],  'baseline')
-    plot_pred_result_algos([7, 8, 9], 'pool')
-    plot_pred_result_algos([10, 11, 12], 'embbeding')
-    plot_pred_result_algos([6, 13, 14], 'ablation')
+    # plot_pred_result_algos([7, 8, 9], 'pool')
+    # plot_pred_result_algos([10, 11, 12], 'embbeding')
+    # plot_pred_result_algos([6, 13, 14], 'ablation')
