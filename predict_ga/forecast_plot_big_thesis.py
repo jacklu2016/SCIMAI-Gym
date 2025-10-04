@@ -42,7 +42,7 @@ for i in range(5):
     ax[ax_row, ax_col].set_xlabel('')
     ax[ax_row, ax_col].set_ylabel('')
 
-    ax[ax_row, ax_col].set_title(f"({fig_no[i]})：布洛芬(Ibuprofen)实际值、{algos[i]['name']}预测值",
+    ax[ax_row, ax_col].set_title(f"({fig_no[i]})：实际值、{algos[i]['name']}预测值",
                  y=-0.15,  # 负值下移标题
                                  #pad = 10,
                  verticalalignment='top')  # 文本顶部对齐坐标轴
@@ -54,5 +54,5 @@ plt.xlabel("", fontsize=12)
 # 设置为每周一刻度，显示ISO周编号
 plt.tight_layout()
 #plt.show()
-plt.savefig('forecast_plot.svg',format='svg',bbox_inches='tight')
+plt.savefig('./results/forecast_plot.svg',format='svg',bbox_inches='tight')
 
