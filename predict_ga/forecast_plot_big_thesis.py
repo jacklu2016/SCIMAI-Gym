@@ -8,10 +8,10 @@ rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
 
 
 # Read a pandas DataFrame
-df = pd.read_csv("D:\\BaiduSyncdisk\\大论文\\参考论文\\基于预测的库存管理\\archive\\salesweekly1.csv", delimiter=",")
+df = pd.read_excel("D:\\BaiduSyncdisk\\大论文\\参考论文\\基于预测的库存管理\\archive\\salesweekly2.xlsx")
 
 # Create a TimeSeries, specifying the time and value columns
-series = TimeSeries.from_dataframe(df, "datum", "M01AB",fill_missing_dates=True)
+series = TimeSeries.from_dataframe(df, "datum", "M01AE",fill_missing_dates=True, freq=None)
 
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates

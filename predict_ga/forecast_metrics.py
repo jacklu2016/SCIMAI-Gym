@@ -22,7 +22,8 @@ def calculate_metrics(y_true, y_pred):
 
 
 # 示例数据
-y_true = np.array([40.99,
+y_true = np.array([
+40.99,
 45.18,
 41.87,
 30.36,
@@ -31,7 +32,8 @@ y_true = np.array([40.99,
 46.84,
 34.01
 ])
-y_pred = np.array([39.461426,
+y_pred = np.array([
+39.461426,
 42.389872,
 33.634032,
 35.118341,
@@ -39,8 +41,6 @@ y_pred = np.array([39.461426,
 36.962149,
 41.379091,
 40.633316
-
-
 ])
 
 mae, rmse, mape = calculate_metrics(y_true, y_pred)
