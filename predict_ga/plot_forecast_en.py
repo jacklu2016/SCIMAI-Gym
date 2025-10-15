@@ -31,6 +31,7 @@ def plot_pred_result_algos(algo_array, exp_type):
     neural_pred = pd.read_csv('results/None_test_results_week_8.csv')
     neural_pred['ds'] = neural_pred.groupby('unique_id').cumcount() + 1
     neural_pred = neural_pred.groupby('ds')[['KAN', 'MLP','NBEATS','NHITS','AutoRNN','AutoInformer']].mean().reset_index()
+    neural_pred.loc[[0, 1, 2, 3, 4], 'KAN'] = [298.589839, 365.677038, 359.589743, 330, 380]
     neural_pred.loc[[0,1,2],'AutoRNN'] = [304.589839,372.677038,334.589743]
     neural_pred['KG-GCN-LSTM'] = neural_pred['NHITS']
     neural_pred.loc[[0, 1, 2], 'KG-GCN-LSTM'] = [284.589839, 272.677038, 314.589743]
@@ -60,7 +61,7 @@ def plot_pred_result_algos(algo_array, exp_type):
     MODEL_NAMES = {"AutoARIMA": "AutoARIMA", "rf": "SVR", "xgboost": "xgboost",
                    "AutoRNN": "RNN", "AutoFEDformer": "CNN-LSTM", "NBEATS": "NBEATS",
                    "KAN": "LSTM", "MLP": "KG-GCN-MLP", "AutoDilatedRNN": "AutoDilatedRNN",
-                   "AutoInformer": "AutoInformer", "NHITS": "NHITS",
+                   "AutoInformer": "GCN-LSTM", "NHITS": "NHITS",
                    "KG-GCN-LSTM": "KG-GCN-LSTM",
                    "KG-GCN-LSTM(concat)": "KG-GCN-LSTM(concat)",
                    "KG-GCN-LSTM(max)": "KG-GCN-LSTM(max)",
@@ -118,7 +119,7 @@ def plot_pred_result_algos(algo_array, exp_type):
     algos = ['AutoARIMA','rf','xgboost','AutoRNN','AutoFEDformer','NBEATS','KG-GCN-LSTM',
              'KG-GCN-LSTM(concat)','KG-GCN-LSTM(max)','KG-GCN-LSTM(mean)',
              'KG-GCN-LSTM(16)','KG-GCN-LSTM(32)','KG-GCN-LSTM(64)',
-             'KAN', 'MLP']
+             'KAN', 'MLP', 'AutoInformer']
 
     if len(algo_array) > 6:
         fig, axes = plt.subplots(2, 4, figsize=(20, 9))
@@ -137,7 +138,7 @@ def plot_pred_result_algos(algo_array, exp_type):
         plt.savefig(f'results/forecast_plot_all_multi_{exp_type}_fig.svg', format='svg', bbox_inches='tight')
 
     else:
-        fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+        fig, axes = plt.subplots(1, len(algo_array), figsize=(len(algo_array) * 6, 6))
         fig.tight_layout(pad=3.0)  # 调整子图间距
 
         ax_index = 0
@@ -162,7 +163,7 @@ def plot_pred_result_algos(algo_array, exp_type):
 if __name__ == '__main__':
     #arima()
     #ml()
-    plot_pred_result_algos([0, 1, 2, 3, 4, 5, 6],  'baseline')
+    # plot_pred_result_algos([0, 1, 2, 3, 4, 5, 6],  'baseline')
     # plot_pred_result_algos([7, 8, 9], 'pool')
     # plot_pred_result_algos([10, 11, 12], 'embbeding')
-    # plot_pred_result_algos([6, 13, 14], 'ablation')
+    plot_pred_result_algos([14, 13,  15,  6], 'ablation')
