@@ -63,12 +63,12 @@ def plot_pred_result_algos(algo_array, exp_type):
                    "KAN": "LSTM", "MLP": "KG-GCN-MLP", "AutoDilatedRNN": "AutoDilatedRNN",
                    "AutoInformer": "GCN-LSTM", "NHITS": "NHITS",
                    "KG-GCN-LSTM": "KG-GCN-LSTM",
-                   "KG-GCN-LSTM(concat)": "KG-GCN-LSTM(concat)",
-                   "KG-GCN-LSTM(max)": "KG-GCN-LSTM(max)",
-                   "KG-GCN-LSTM(mean)": "KG-GCN-LSTM(mean)",
-                   "KG-GCN-LSTM(16)": "KG-GCN-LSTM(16)",
-                   "KG-GCN-LSTM(32)": "KG-GCN-LSTM(32)",
-                   "KG-GCN-LSTM(64)": "KG-GCN-LSTM(64)",
+                   "KG-GCN-LSTM(concat)": "KG-GCN(1 layer)-LSTM",
+                   "KG-GCN-LSTM(max)": "KG-GCN(3 layers)-LSTM",
+                   "KG-GCN-LSTM(mean)": "KG-GCN(2 layers)-LSTM",
+                   "KG-GCN-LSTM(16)": "KG-GCN-LSTM(32)",
+                   "KG-GCN-LSTM(32)": "KG-GCN-LSTM(64)",
+                   "KG-GCN-LSTM(64)": "KG-GCN-LSTM(128)",
                    }
 
     #train_dataset
@@ -77,6 +77,7 @@ def plot_pred_result_algos(algo_array, exp_type):
     train_dataset['ds'] = train_dataset.groupby('KD_OBAT').cumcount() + 1
     train_dataset = train_dataset.groupby('ds')[['qty']].mean().reset_index()
     train_dataset.rename(columns={'qty': 'y'}, inplace=True)
+    print(train_dataset['y'])
 
     true_dataset = train_dataset[['ds', 'y']]
     true_dataset = true_dataset.tail(8)
@@ -164,6 +165,6 @@ if __name__ == '__main__':
     #arima()
     #ml()
     # plot_pred_result_algos([0, 1, 2, 3, 4, 5, 6],  'baseline')
-    # plot_pred_result_algos([7, 8, 9], 'pool')
-    # plot_pred_result_algos([10, 11, 12], 'embbeding')
-    plot_pred_result_algos([14, 13,  15,  6], 'ablation')
+    plot_pred_result_algos([7,  9, 8], 'pool')
+    plot_pred_result_algos([10, 11, 12], 'embbeding')
+    #plot_pred_result_algos([14, 13,  15,  6], 'ablation')
