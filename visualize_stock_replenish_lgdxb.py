@@ -165,7 +165,109 @@ def render_figure(df):
                 format='svg',dpi=600,bbox_inches='tight')
     plt.savefig(f"transitions_state_all_{date_str}.pdf",
                 format='pdf',bbox_inches='tight')
-    df.to_csv(f"transitions_state_all_{date_str}_new.csv", index=False)
+    #df.to_csv(f"transitions_state_all_{date_str}_new.csv", index=False)
+
+def render_multi_figure(df):
+    fig, axes = plt.subplots(2, 1, figsize=(16, 11))
+    # for retrun_trace in returns_trace_all:
+
+    # plt.figure(figsize=(10, 30))
+    fig_no = ['c','d','e','f','g','h']
+    # states transitions
+    ax = axes[0]
+
+    for i in range(len(argos)):
+        print(f'i:{i}')
+        ax.plot(range(T),
+                df[f'f_stock_{argos[i]}'],
+                color=algo_line_style[i]['color'], marker=algo_line_style[i]['marker'],
+                linestyle=algo_line_style[i]['linestyle'],
+                alpha=.5, label=algo_line_style[i]["label"])
+
+    ax.legend(fontsize=16, loc='upper left', bbox_to_anchor=(0.97, 1))
+    ax.set_xlabel('时间', fontsize=16)
+    ax.set_ylabel('分销商库存', fontsize=16)
+    ax.set_title('（a）分销商库存水平',
+                 y=-0.15,  # 负值下移标题
+                 fontsize=16,
+                 fontweight='bold',
+                 verticalalignment='top')  # 文本顶部对齐坐标轴
+
+    ax = axes[1]
+    for i in range(len(argos)):
+        print(f'i:{i}')
+        # 绘制action
+        ax.plot(range(T),
+                df[f'f_action_{argos[i]}'],
+                color=algo_line_style[i]['color'], marker=algo_line_style[i]['marker'],
+                linestyle=algo_line_style[i]['linestyle'],
+                alpha=.5, label=algo_line_style[i]["label"])
+
+    ax.legend(fontsize=16, loc='upper left', bbox_to_anchor=(0.97, 1))
+    ax.set_xlabel('时间', fontsize=16)
+    ax.set_ylabel('分销商补货量', fontsize=16)
+    ax.set_title('（b）分销商补货量',
+                 y=-0.15,  # 负值下移标题
+                 fontsize=16,
+                 fontweight='bold',
+                 verticalalignment='top')  # 文本顶部对齐坐标轴
+    today = datetime.now().date()
+    # 格式化为字符串（默认格式：YYYY-MM-DD）
+    date_str = today.strftime("%Y-%m-%d")
+    plt.savefig(f"./lgdxb/transitions_state_{date_str}_distribution.svg",
+                format='svg', dpi=600, bbox_inches='tight')
+
+    #distribution warehouses stocks医药批发企业的库存
+    for j in range(num_distribution_warehouse):
+
+        fig, axes = plt.subplots(2, 1, figsize=(16, 11))
+
+        #print(f'ax_row:{ax_row};ax_col:{ax_col}')
+        ax = axes[0]
+        # 绘制每个算法的库存图
+        for i in range(len(argos)):
+            ax.plot(range(T),
+                    df[f'w_{j + 1}_stock_{argos[i]}'],
+                    color=algo_line_style[i]['color'], marker=algo_line_style[i]['marker'],
+                    linestyle=algo_line_style[i]['linestyle'],
+                    alpha=.5, label=algo_line_style[i]["label"])
+        # 添加图例
+        ax.legend(fontsize=16, loc='upper left', bbox_to_anchor=(0.97, 1))
+        ax.set_xlabel('时间', fontsize=16)
+        ax.set_ylabel(f'零售商{j + 1}库存', fontsize=16)
+
+        ax.set_title(f'（a）零售商{j + 1}库存水平',
+                     y=-0.15,  # 负值下移标题
+                     fontsize=16,
+                     fontweight='bold',
+                     verticalalignment='top')  # 文本顶部对齐坐标轴
+
+        # 绘制补货动作
+        ax = axes[1]
+        # 绘制每个算法的补货图
+        for i in range(len(argos)):
+            ax.plot(range(T),
+                    df[f'w_{j + 1}_action_{argos[i]}'],
+                    color=algo_line_style[i]['color'], marker=algo_line_style[i]['marker'],
+                    linestyle=algo_line_style[i]['linestyle'],
+                    alpha=.5, label=algo_line_style[i]["label"])
+
+        # 添加图例
+        ax.legend(fontsize=16, loc='upper left', bbox_to_anchor=(0.97, 1))
+        ax.set_xlabel('时间', fontsize=16)
+        ax.set_ylabel(f'零售商{j + 1}补货量', fontsize=16)
+        ax.set_title(f'（b）零售商{j + 1}补货量',
+                     y=-0.15,  # 负值下移标题
+                     fontsize=16,
+                     fontweight='bold',
+                     verticalalignment='top')  # 文本顶部对齐坐标轴
+
+        today = datetime.now().date()
+        # 格式化为字符串（默认格式：YYYY-MM-DD）
+        date_str = today.strftime("%Y-%m-%d")
+        plt.savefig(f"./lgdxb/transitions_state_{date_str}_retailer{j+1}.svg",
+                    format='svg',dpi=600,bbox_inches='tight')
+    #
 
 def render_figure_stock(df):
     fig, axes = plt.subplots(4, 1, figsize=(8, 16))
@@ -268,8 +370,8 @@ def render_figure_action(df):
     date_str = today.strftime("%Y-%m-%d")
     plt.savefig(f"transitions_action_all_{date_str}.svg",
                 format='svg',bbox_inches='tight')
-    plt.savefig(f"transitions_action_all_{date_str}.pdf",
-                format='pdf')
+    # plt.savefig(f"transitions_action_all_{date_str}.pdf",
+    #             format='pdf')
 
 #读取csv
 #data_frame = pd.read_csv('1P3W_2025-03-15_22-53-58/plots/transitions_state_all_2025-03-16_090639-1.csv')
@@ -278,7 +380,8 @@ data_frame = pd.read_excel('transitions_state_all_lgdxb_2025-07-07.xlsx')
 #data_frame = pd.read_excel('D:\BaiduSyncdisk\大论文\multi_echelon_inventory.xlsx')
 #df_len = df.shape[0]
 #change_data(data_frame)
-render_figure(data_frame)
+#render_figure(data_frame)
+render_multi_figure(data_frame)
 #render_figure_stock(data_frame)
 #render_figure_action(data_frame)
 
