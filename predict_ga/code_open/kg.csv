@@ -1,0 +1,98 @@
+Head,Relation,Tail
+Acyclovir 200 mg,is_alternative_to,Acyclovir 400 mg
+Acyclovir 400 mg,is_alternative_to,Acyclovir 200 mg
+Acyclovir 400 mg,is_alternative_to,Valaciclovir (General)
+Allopurinol 100 mg,is_alternative_to,Allopurinol 300 mg
+Allopurinol 300 mg,is_alternative_to,Allopurinol 100 mg
+Allopurinol 100 mg,is_alternative_to,Febuxostat (General)
+Amlodipin 5 mg,is_alternative_to,Amlodipin 10 mg
+Amlodipin 10 mg,is_alternative_to,Amlodipin 5 mg
+Amlodipin 5 mg,interacts_with,Ramipril 2 mg
+Amlodipin 5 mg,interacts_with,Ramipril 5mg tab
+Metformin 500 mg,interacts_with,Glimepiride 1 mg
+Metformin 500 mg,interacts_with,Glimepiride 2 mg
+Metformin 500 mg,interacts_with,Insulin (General)
+Glimepiride 1 mg,interacts_with,Metformin 500 mg
+Ramipril 2 mg,interacts_with,Amlodipin 5 mg
+Ramipril 5mg tab,interacts_with,Amlodipin 5 mg
+Paracetamol 500 mg,is_alternative_to,Paracetamol 120 mg/5ml
+Paracetamol 500 mg,is_alternative_to,Paracetamol Drop 100 mg/ml
+Ibuprofen 400 mg,is_alternative_to,Paracetamol 500 mg
+Cetirizine 10 mg,is_alternative_to,Loratadine 10 mg
+Adalat Oros 30 mg,is_alternative_to,Nifedipin 10 mg
+Adalat Oros 30 mg,interacts_with,Carbamazepine (General)
+Adalat Oros 30 mg,interacts_with,Magnesium sulfate (General)
+Alinamin F 25 mg/10 m,is_alternative_to,Thiamine (General)
+Ambroxol 30 mg,is_alternative_to,Bromhexine (General)
+Ambroxol 30 mg,interacts_with,Amoxicillin 500 mg
+Ambroxol 30 mg,interacts_with,Cefixime 100 mg
+Amdixal 5 mg,is_alternative_to,Amdixal 10 mg
+Amdixal 10 mg,is_alternative_to,Amdixal 5 mg
+Amdixal 5 mg,is_alternative_to,Amlodipin 5 mg
+Amdixal 5 mg,is_alternative_to,Valsartan (General)
+Amitriptyline 25 mg,interacts_with,SSRIs (General)
+Amoxicillin 125 mg,is_alternative_to,Amoxicillin 500 mg
+Amoxicillin 125 mg,interacts_with,Clavulanic acid (General)
+Amoxicillin 500 mg,is_alternative_to,Amoxicillin 125 mg
+Amoxicillin 500 mg,interacts_with,Metronidazole 500 mg
+Anxibloc 10 mg,interacts_with,Opioids (General)
+Anxibloc 10 mg,interacts_with,Alcohol (General)
+Apazol 1 mg,is_alternative_to,Alprazolam 0.25 mg (General)
+Apazol 1 mg,interacts_with,Ketokonazol 200 mg
+Apazol 1 mg,interacts_with,Erythromycin (General)
+Apidra Solostar Pen 100 IU/ml,is_alternative_to,Novo Rapid FlexPen 100 IU/ml
+Apidra Solostar Pen 100 IU/ml,interacts_with,Metformin 500 mg
+Apidra Solostar Pen 100 IU/ml,interacts_with,Lantus Solostar Pen 100 IU/ml
+Aptor 100 mg,is_alternative_to,Clopidogrel 75 mg (General)
+Arimidex 1 mg,is_alternative_to,Femara 2 (Letrozole)
+Asam Mefenamat 500 mg,is_alternative_to,Ibuprofen 400 mg
+Asam Mefenamat 500 mg,interacts_with,Warfarin (General)
+Aspilets 80 mg,interacts_with,Ibuprofen 400 mg
+Atorvastatin 20 mg,is_alternative_to,Simvastatin 20 mg
+Atorvastatin 20 mg,interacts_with,Amlodipin 5 mg
+Azithromycin 500 mg,is_alternative_to,Doxycycline (General)
+Azithromycin 500 mg,is_alternative_to,Amoxicillin 500 mg
+Azithromycin 500 mg,interacts_with,Atorvastatin 20 mg
+Berotec MDI 100 mcg/pu,interacts_with,Bisoprolol 5 mg
+Berotec MDI 100 mcg/pu,is_alternative_to,Ventolin Inhaler 100 mcg/pu
+Betaserc 8 mg,is_alternative_to,Cinnarizine (General)
+Betaserc 8 mg,interacts_with,Cetirizine 10 mg
+Bisoprolol 5 mg,interacts_with,Amlodipin 5 mg
+Bisoprolol 5 mg,interacts_with,Verapamil (General)
+Braxidin 7,interacts_with,Amitriptyline 25 mg
+Braxidin 7,interacts_with,Alcohol (General)
+Cameloc 15 mg,is_alternative_to,Meloxicam 7
+Cameloc 15 mg,is_alternative_to,Ibuprofen 400 mg
+Cameloc 15 mg,interacts_with,Warfarin (General)
+Canderin 16 mg,is_alternative_to,Canderin 8 mg
+Candesartan TI 16 mg,is_alternative_to,Canderin 16 mg
+Candesartan TI 16 mg,interacts_with,Hidroklorotiazid 25 mg
+Carbloxal 6,is_alternative_to,Bisoprolol 5 mg
+Carbloxal 6,interacts_with,Amlodipin 5 mg
+Cardace 5 mg,interacts_with,Amlodipin 5 mg
+Cardace 5 mg,interacts_with,Losartan (General)
+Cefadroxil 125 mg/5ml,is_alternative_to,Cefadroxil 500 mg
+Cefadroxil 125 mg/5ml,is_alternative_to,Cephalexin (General)
+Cefadroxil 125 mg/5ml,interacts_with,Furosemide 40 mg
+Cefadroxil 500 mg,is_alternative_to,Cefadroxil 125 mg/5ml
+Cefadroxil 500 mg,interacts_with,Furosemide 40 mg
+Cefixime 100 mg,is_alternative_to,Amoxicillin 500 mg
+Cefixime 100 mg,interacts_with,Warfarin (General)
+Cefixime OGB 100 mg/5ml,is_alternative_to,Cefixime 100 mg
+Cefotaxime 1000 mg/vi,interacts_with,Furosemide 40 mg
+Ceftazidime 1000 mg/vi,interacts_with,Furosemide 40 mg
+Ceftriaxone 1000 mg/vi,interacts_with,Calcium (General)
+Cendo Lyteers 15 ml,is_alternative_to,Artificial Tears (General)
+Cetirizine 10 mg,is_alternative_to,Cetirizine 10 mg/mL
+Cetirizine 10 mg,interacts_with,Alcohol (General)
+Ciprofloxacine 500 mg,is_alternative_to,Cefixime 100 mg
+Ciprofloxacine 500 mg,interacts_with,Theophylline (General)
+Clindamycin 150 mg,is_alternative_to,Clindamycin 300 mg
+Clindamycin 300 mg,is_alternative_to,Clindamycin 150 mg
+Clonidine 0,interacts_with,Propranolol 10 mg
+Clopisan 75 mg,is_alternative_to,Aptor 100 mg
+Co amoxiclav 625 mg,interacts_with,Warfarin (General)
+Concor 2,is_alternative_to,Concor 5 mg
+Concor 5 mg,is_alternative_to,Bisoprolol 5 mg
+Cordila SR 180 mg,interacts_with,Grapefruit (General)
+Cordila SR 180 mg,interacts_with,Simvastatin 20 mg
