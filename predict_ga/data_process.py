@@ -22,7 +22,7 @@ df_grouped['y'] = df_grouped['QTY']
 df_grouped = df_grouped.filter(items=['unique_id', 'ds', 'y'])
 print(df_grouped)
 
-df_grouped.to_csv('Ibuprofen-400-day.csv', index=False)
+#df_grouped.to_csv('Ibuprofen-400-day.csv', index=False)
 
 
 # df['date'] = pd.to_datetime(df['TGL'], format='%d/%m/%Y')
@@ -39,3 +39,10 @@ df_grouped.to_csv('Ibuprofen-400-day.csv', index=False)
 # print(df_grouped)
 #
 # df_grouped.to_csv('Ibuprofen-400-week.csv', index=False)
+
+df = pd.read_csv('sale_week.csv')
+df.columns = ["unique_id", "ds", "y"]
+    #keep 40 weeks of recorded sales
+df = df.groupby('unique_id').filter(lambda x: len(x) >= 40)
+#print(df['unique_id'].unique())
+print(','.join(df['unique_id'].unique()))
