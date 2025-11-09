@@ -41,7 +41,7 @@ class KG_GCN_LSTMModule(nn.Module):
         self.fc = nn.Linear(hidden_dim_lstm, 1)
 
     def forward(self, data):
-        # x 形状 (N, T_w)，转置为 (N, input_dim)
+        # x (N, T_w)，转置为 (N, input_dim)
         x, edge_index = data.x.T, data.edge_index
 
         #GCN
@@ -124,7 +124,7 @@ def load_data_and_kg() -> tuple[TimeSeries, torch.Tensor, dict]:
     src = [node_to_idx[head] for head in kg_df['Head']]
     dst = [node_to_idx[tail] for tail in kg_df['Tail']]
 
-    # GCN 需要无向图，添加反向边
+    # GCN
     src_all = src + dst
     dst_all = dst + src
 
@@ -136,17 +136,15 @@ def load_data_and_kg() -> tuple[TimeSeries, torch.Tensor, dict]:
 if __name__ == '__main__':
     series, edge_index, node_map = load_data_and_kg()
     N_NODES = len(node_map)
-    # 划分训练集和验证集
+
     train, val = series.split_after(0.7)
 
-    # 模型参数
     INPUT_CHUNK_LENGTH = 16
     OUTPUT_CHUNK_LENGTH = 1
     INPUT_DIM = N_NODES
     OUTPUT_DIM = 1
     N_EPOCHS = 500
 
-    # 初始化自定义 KG-GCN-LSTM 模型
     model_kggcnlstm = GCNLSTMModel(
         input_chunk_length=INPUT_CHUNK_LENGTH,
         output_chunk_length=OUTPUT_CHUNK_LENGTH,
@@ -157,10 +155,7 @@ if __name__ == '__main__':
         n_epochs=N_EPOCHS
     )
 
-    print(f"开始训练 KG-GCN-LSTM 模型")
     model_kggcnlstm.fit(train)
-    print("训练完成。")
 
-    # 进行预测
     prediction = model_kggcnlstm.predict(n=len(val))
 

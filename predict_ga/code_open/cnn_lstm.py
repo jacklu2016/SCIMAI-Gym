@@ -13,14 +13,14 @@ class CNNLSTMModule(nn.Module):
         self.output_chunk_length = output_chunk_length
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim
-        # CNN 层:Conv1d
+        # CNN :Conv1d
         self.cnn = nn.Conv1d(
             in_channels=input_dim,
             out_channels=64,
             kernel_size=kernel_size,
             padding='same'
         )
-        # LSTM层:
+        # LSTM:
         self.lstm = nn.LSTM(
             input_size=64,
             hidden_size=hidden_dim,
@@ -32,17 +32,16 @@ class CNNLSTMModule(nn.Module):
         self.reshape = nn.Unflatten(1, (output_chunk_length, output_dim))
 
     def forward(self, x):
-        # x 的输入形状: (batch_size, input_chunk_length, input_dim)
+        # x: (batch_size, input_chunk_length, input_dim)
         x = x.transpose(1, 2)
-        # CNN 前向传播
+        # CNN
         cnn_out = self.cnn(x)
-        # 将 cnn_out 转置回LSTM期望的形状: (batch_size, input_chunk_length, 32)
+        # 将 cnn_out 转置LSTM: (batch_size, input_chunk_length)
         cnn_out = cnn_out.transpose(1, 2)
-        #LSTM前向传播
+        #LSTM
         lstm_out, _ = self.lstm(cnn_out)
-        #LSTM最后一个时间步的输出
         lstm_last_step = lstm_out[:, -1, :]
-        # 全连接层和重塑层
+        #
         output = self.fc(lstm_last_step)
         output = self.reshape(output)
         return output
@@ -77,7 +76,6 @@ horizon = 8
 train_df = df.groupby('unique_id', group_keys=False).apply(lambda x: x.head(len(x) - 8))
 test_df = df.groupby('unique_id').tail(horizon)
 
-# 模型参数
 INPUT_CHUNK_LENGTH = 16
 OUTPUT_CHUNK_LENGTH = 8
 INPUT_DIM = 1
