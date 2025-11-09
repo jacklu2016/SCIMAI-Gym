@@ -16,7 +16,7 @@ from typing import Optional, List
 
 
 class KG_GCN_LSTMModule(nn.Module):
-    def __init__(self, tw_window, input_dim, hidden_dim_gcn=64, hidden_dim_lstm=128):
+    def __init__(self, tw_window, input_dim, hidden_dim_gcn=64, hidden_dim_lstm=64):
         super(KG_GCN_LSTMModule, self).__init__()
         self.tw_window = tw_window
         self.input_dim = input_dim
@@ -29,7 +29,7 @@ class KG_GCN_LSTMModule(nn.Module):
         # GCN Layer 2: Input (64) -> Output (64)
         self.gcn2 = GCNConv(hidden_dim_gcn, hidden_dim_gcn)
 
-        # LSTM Layer: Input (T_w, 64) -> Output (1, 128)
+        # LSTM Layer: Input (T_w, 64) -> Output (1, 64)
         self.lstm = nn.LSTM(
             input_size=hidden_dim_gcn,
             hidden_size=hidden_dim_lstm,
@@ -37,7 +37,7 @@ class KG_GCN_LSTMModule(nn.Module):
             num_layers=1
         )
 
-        # Fully Connected Layer: Input (128) -> Output (1)
+        # Fully Connected Layer: Input (64) -> Output (1)
         self.fc = nn.Linear(hidden_dim_lstm, 1)
 
     def forward(self, data):
@@ -52,7 +52,7 @@ class KG_GCN_LSTMModule(nn.Module):
         z_i = h[0, :].unsqueeze(0)
         # (LSTM Block)
         lstm_input = z_i.unsqueeze(0)
-        # LSTM forward: output (1, 1, 128)
+        # LSTM forward: output (1, 1, 64)
         lstm_out, _ = self.lstm(lstm_input)
         h_i = lstm_out[:, -1, :]
 

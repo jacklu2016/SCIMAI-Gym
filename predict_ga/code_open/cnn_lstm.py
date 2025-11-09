@@ -82,7 +82,7 @@ INPUT_CHUNK_LENGTH = 16
 OUTPUT_CHUNK_LENGTH = 8
 INPUT_DIM = 1
 OUTPUT_DIM = 1
-HIDDEN_DIM = 128
+HIDDEN_DIM = 64
 KERNEL_SIZE = 3
 N_EPOCHS = 500
 
@@ -91,7 +91,7 @@ model_cnnlstm = CNNLSTMModel(
     output_chunk_length=8,
     input_dim=1,
     output_dim=1,
-    hidden_dim=128,
+    hidden_dim=64,
     kernel_size=3,
     batch_size=16,
     n_epochs=500,
