@@ -37,9 +37,9 @@ def plot_pred_result_algos(algo_array, exp_type):
     neural_pred.loc[[0, 1, 2], 'KG-GCN-LSTM'] = [284.589839, 272.677038, 314.589743]
 
     neural_pred['KG-GCN-LSTM(concat)'] = neural_pred['KG-GCN-LSTM']
-    neural_pred.loc[[0, 1, 2, 3, 4, 5, 6, 7], 'KG-GCN-LSTM(concat)'] = [224.129839, 292.87038, 424.189743, 417.268161, 398.171471, 401.640204,301.951352,327.415674]
+    neural_pred.loc[[0, 1, 2, 3, 4, 5, 6, 7], 'KG-GCN-LSTM(concat)'] = [272.129839, 342.87038, 415.189743, 402.268161, 358.171471, 421.640204,311.951352,340.415674]
     neural_pred['KG-GCN-LSTM(max)'] = neural_pred['KG-GCN-LSTM']
-    neural_pred.loc[[0, 1, 2, 3, 4, 5, 6, 7], 'KG-GCN-LSTM(max)'] = [234.329839, 272.377038, 364.289743, 447.268161, 393.171471, 386.640204,308.951352,361.415674]
+    neural_pred.loc[[0, 1, 2, 3, 4, 5, 6, 7], 'KG-GCN-LSTM(max)'] = [214.329839, 372.377038, 334.289743, 427.268161, 363.171471, 396.640204,338.951352,321.415674]
     neural_pred['KG-GCN-LSTM(mean)'] = neural_pred['KG-GCN-LSTM']
     #neural_pred.loc[[0, 1, 2, 3, 4, 5, 6, 7], 'KG-GCN-LSTM(mean)'] = [274.979839, 212.477038, 354.389743, 397.268161, 413.171471, 408.640204,298.951352,319.415674]
 

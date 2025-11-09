@@ -45,4 +45,5 @@ df.columns = ["unique_id", "ds", "y"]
     #keep 40 weeks of recorded sales
 df = df.groupby('unique_id').filter(lambda x: len(x) >= 40)
 #print(df['unique_id'].unique())
-print(','.join(df['unique_id'].unique()))
+#df['unique_id'].unique().to_csv('drug.csv', index=False)
+print("','".join(df['unique_id'].unique()))
