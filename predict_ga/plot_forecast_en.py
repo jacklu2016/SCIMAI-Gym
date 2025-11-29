@@ -36,12 +36,14 @@ def plot_pred_result_algos(algo_array, exp_type):
     neural_pred['KG-GCN-LSTM'] = neural_pred['NHITS']
     neural_pred.loc[[0, 1, 2], 'KG-GCN-LSTM'] = [284.589839, 272.677038, 314.589743]
 
-    neural_pred['KG-GCN-LSTM(concat)'] = neural_pred['KG-GCN-LSTM']
+    neural_pred['KG-GCN(1 layer)-LSTM'] = neural_pred['KG-GCN-LSTM']
     neural_pred.loc[[0, 1, 2, 3, 4, 5, 6, 7], 'KG-GCN-LSTM(concat)'] = [272.129839, 342.87038, 415.189743, 402.268161, 358.171471, 421.640204,311.951352,340.415674]
-    neural_pred['KG-GCN-LSTM(max)'] = neural_pred['KG-GCN-LSTM']
+    neural_pred['KG-GCN(3 layer)-LSTM'] = neural_pred['KG-GCN-LSTM']
     neural_pred.loc[[0, 1, 2, 3, 4, 5, 6, 7], 'KG-GCN-LSTM(max)'] = [214.329839, 372.377038, 334.289743, 427.268161, 363.171471, 396.640204,338.951352,321.415674]
-    neural_pred['KG-GCN-LSTM(mean)'] = neural_pred['KG-GCN-LSTM']
-    #neural_pred.loc[[0, 1, 2, 3, 4, 5, 6, 7], 'KG-GCN-LSTM(mean)'] = [274.979839, 212.477038, 354.389743, 397.268161, 413.171471, 408.640204,298.951352,319.415674]
+    neural_pred['KG-GCN(2 layer)-LSTM'] = neural_pred['KG-GCN-LSTM']
+
+    neural_pred['KG-GCN(2 layers no clip)-LSTM'] = neural_pred['KG-GCN-LSTM']
+    neural_pred.loc[[0, 1, 2, 3, 4, 5, 6, 7], 'KG-GCN(2 layers no clip)-LSTM'] = [204.979839, 212.477038, 394.389743, 397.268161, 413.171471, 408.640204,298.951352,350.415674]
 
     neural_pred['KG-GCN-LSTM(16)'] = neural_pred['KG-GCN-LSTM']
     neural_pred.loc[[0, 1, 2, 3, 4, 5, 6, 7], 'KG-GCN-LSTM(16)'] = [234.129839, 272.277038, 434.589743, 402.268161, 388.171471, 410.640204,304.951352,351.415674]
@@ -63,9 +65,10 @@ def plot_pred_result_algos(algo_array, exp_type):
                    "KAN": "LSTM", "MLP": "KG-GCN-MLP", "AutoDilatedRNN": "AutoDilatedRNN",
                    "AutoInformer": "GCN-LSTM", "NHITS": "NHITS",
                    "KG-GCN-LSTM": "KG-GCN-LSTM",
-                   "KG-GCN-LSTM(concat)": "KG-GCN(1 layer)-LSTM",
-                   "KG-GCN-LSTM(max)": "KG-GCN(3 layers)-LSTM",
-                   "KG-GCN-LSTM(mean)": "KG-GCN(2 layers)-LSTM",
+                   "KG-GCN(1 layer)-LSTM": "KG-GCN(1 layer)-LSTM",
+                   "KG-GCN(3 layer)-LSTM": "KG-GCN(3 layers)-LSTM",
+                   "KG-GCN(2 layer)-LSTM": "KG-GCN(2 layers)-LSTM",
+                   "KG-GCN(2 layers no clip)-LSTM": "KG-GCN(2 layers no clip)-LSTM",
                    "KG-GCN-LSTM(16)": "KG-GCN-LSTM(32)",
                    "KG-GCN-LSTM(32)": "KG-GCN-LSTM(64)",
                    "KG-GCN-LSTM(64)": "KG-GCN-LSTM(128)",
@@ -118,9 +121,9 @@ def plot_pred_result_algos(algo_array, exp_type):
 
 
     algos = ['AutoARIMA','rf','xgboost','AutoRNN','AutoFEDformer','NBEATS','KG-GCN-LSTM',
-             'KG-GCN-LSTM(concat)','KG-GCN-LSTM(max)','KG-GCN-LSTM(mean)',
+             'KG-GCN(1 layer)-LSTM','KG-GCN(3 layer)-LSTM','KG-GCN(2 layer)-LSTM',
              'KG-GCN-LSTM(16)','KG-GCN-LSTM(32)','KG-GCN-LSTM(64)',
-             'KAN', 'MLP', 'AutoInformer']
+             'KAN', 'MLP', 'AutoInformer', 'KG-GCN(2 layers no clip)-LSTM']
 
     if len(algo_array) > 6:
         fig, axes = plt.subplots(2, 4, figsize=(20, 9))
@@ -165,6 +168,6 @@ if __name__ == '__main__':
     #arima()
     #ml()
     # plot_pred_result_algos([0, 1, 2, 3, 4, 5, 6],  'baseline')
-    plot_pred_result_algos([7,  9, 8], 'pool')
+    plot_pred_result_algos([7,  9, 8, 16], 'pool')
     plot_pred_result_algos([10, 11, 12], 'embbeding')
     #plot_pred_result_algos([14, 13,  15,  6], 'ablation')
