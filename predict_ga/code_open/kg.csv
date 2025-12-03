@@ -96,3 +96,219 @@ Concor 2,is_alternative_to,Concor 5 mg
 Concor 5 mg,is_alternative_to,Bisoprolol 5 mg
 Cordila SR 180 mg,interacts_with,Grapefruit (General)
 Cordila SR 180 mg,interacts_with,Simvastatin 20 mg
+Head_Entity,Relation,Tail_Entity
+Acyclovir,is_alternative_to,Valacyclovir
+Acyclovir,is_alternative_to,Famciclovir
+Adalat (Nifedipine),is_alternative_to,Amlodipine
+Adalat (Nifedipine),is_alternative_to,Felodipine
+Alinamin (Vit B1),is_alternative_to,Neurosanbe
+Alinamin (Vit B1),is_alternative_to,Neurobion
+Allopurinol,is_alternative_to,Febuxostat
+Ambroxol,is_alternative_to,Bromhexine
+Ambroxol,is_alternative_to,Acetylcysteine
+Epexol (Ambroxol),is_alternative_to,Mucopect
+Mucopect,is_alternative_to,Bisolvon
+Amdixal,is_alternative_to,Amlodipine
+Amitriptyline,is_alternative_to,Nortriptyline
+Amitriptyline,is_alternative_to,Clobazam
+Amlodipin,is_alternative_to,Nifedipin
+Amlodipin,is_alternative_to,Candesartan
+Amlodipin,is_alternative_to,Valsartan
+Amoxicillin,is_alternative_to,Cefadroxil
+Amoxicillin,is_alternative_to,Azithromycin
+Amoxsan,is_alternative_to,Lapicef
+Amoxsan,is_alternative_to,Viccillin
+Anxibloc,is_alternative_to,Alprazolam
+Apazol (Alprazolam),is_alternative_to,Xanax
+Apazol (Alprazolam),is_alternative_to,Valdimex (Diazepam)
+Apidra (Insulin Glulisine),is_alternative_to,Novorapid
+Apidra (Insulin Glulisine),is_alternative_to,Humalog
+Arimidex (Anastrozole),is_alternative_to,Femara (Letrozole)
+Aspilets (Aspirin),is_alternative_to,Clopidogrel
+Atorvastatin,is_alternative_to,Simvastatin
+Atorvastatin,is_alternative_to,Rosuvastatin
+Azithromycin,is_alternative_to,Clarithromycin
+Azithromycin,is_alternative_to,Erythromycin
+Baquinor (Ciprofloxacin),is_alternative_to,Levofloxacin
+Berotec (Fenoterol),is_alternative_to,Ventolin (Salbutamol)
+Betaserc (Betahistine),is_alternative_to,Merit
+Bisoprolol,is_alternative_to,Atenolol
+Bisoprolol,is_alternative_to,Carvedilol
+Concor (Bisoprolol),is_alternative_to,Beta-One
+Braxidin,interacts_with,Chlordiazepoxide
+Braxidin,interacts_with,Clinidium Bromide
+Cameloc (Meloxicam),is_alternative_to,Piroxicam
+Cameloc (Meloxicam),is_alternative_to,Voltadex
+Candesartan,is_alternative_to,Telmisartan
+Candesartan,is_alternative_to,Irbesartan
+Canderin (Candesartan),is_alternative_to,Micardis
+Cardace (Ramipril),is_alternative_to,Captopril
+Cefadroxil,is_alternative_to,Cefalexin
+Lapicef (Cefadroxil),is_alternative_to,Cefat
+Cefixime,is_alternative_to,Cefoperazone
+Cefspan,is_alternative_to,Cefixime
+Cefotaxime,is_alternative_to,Ceftriaxone
+Ceftazidime,is_alternative_to,Cefepime
+Ceftriaxone,is_alternative_to,Cefotaxime
+Cendo (Eye Drops),is_alternative_to,Rohto
+Cetirizine,is_alternative_to,Loratadine
+Cetirizine,is_alternative_to,Fexofenadine
+Tiriz (Cetirizine),is_alternative_to,Incidal
+Ciprofloxacine,is_alternative_to,Levofloxacin
+Clindamycin,is_alternative_to,Lincomycin
+Clonidine,is_alternative_to,Methyldopa
+Clopisan (Clopidogrel),is_alternative_to,Plavix
+Decolsin,interacts_with,Paracetamol
+Decolsin,interacts_with,Pseudoephedrine
+Deculin (Pioglitazone),is_alternative_to,Actos
+Deksametason,is_alternative_to,Methylprednisolone
+Depakote,is_alternative_to,Valproic Acid
+Dexanta (Antacid),is_alternative_to,Mylanta
+Dexanta (Antacid),is_alternative_to,Promag
+Diazole (Metronidazole),is_alternative_to,Flagyl
+Digoxine,is_alternative_to,Bisoprolol (for rate control)
+Domperidon,is_alternative_to,Metoclopramide
+Vometa (Domperidone),is_alternative_to,Primperan
+Dulcolax (Bisacodyl),is_alternative_to,Laxadine
+Eclid,is_alternative_to,Gliclazide
+Elkana,is_alternative_to,Caviplex
+Enystin (Nystatin),is_alternative_to,Mycostatin
+Euthyrox (Levothyroxine),is_alternative_to,Thyrax
+Farbivent,interacts_with,Ipratropium
+Farbivent,interacts_with,Salbutamol
+Farsorbid (Isosorbide Dinitrate),is_alternative_to,Cedocard
+Femara (Letrozole),is_alternative_to,Arimidex
+Fitbon,is_alternative_to,Glucosamine
+Flunarizine,is_alternative_to,Cinnarizine
+Furosemide,is_alternative_to,Torsemide
+Furosemide,is_alternative_to,Spironolactone
+Lasix,is_alternative_to,Farsix
+Gabexal (Gabapentin),is_alternative_to,Lyrica (Pregabalin)
+Gastrofer,is_alternative_to,Lansoprazole
+Gentamicin,is_alternative_to,Tobramycin
+Glimepiride,is_alternative_to,Glibenclamide
+Glimepiride,is_alternative_to,Gliclazide
+Glucobay (Acarbose),is_alternative_to,Eclid
+Harnal (Tamsulosin),is_alternative_to,Doxazosin
+Hidroklorotiazid (HCT),is_alternative_to,Indapamide
+Hydrocortison,is_alternative_to,Betamethasone
+Hyoscine,is_alternative_to,Dicyclomine
+Buscopan (Hyoscine),is_alternative_to,Spasminal
+Hytrin (Terazosin),is_alternative_to,Cardura
+Ibuprofen,is_alternative_to,Asam Mefenamat
+Ibuprofen,is_alternative_to,Ketoprofen
+Proneuron,is_alternative_to,Ibuprofen
+Inerson (Desoximetasone),is_alternative_to,Esperson
+Irvebal (Irbesartan),is_alternative_to,Aprovel
+Isosorbid,is_alternative_to,Nitroglycerin
+Kalnex (Tranexamic Acid),is_alternative_to,Transamin
+Kaltrofen (Ketoprofen),is_alternative_to,Proris
+Ketokonazol,is_alternative_to,Itraconazole
+Miconazol,is_alternative_to,Ketokonazol
+Ketorolac,is_alternative_to,Tramadol
+Ketorolac,is_alternative_to,Meloxicam
+Kotrimoksazol,interacts_with,Trimethoprim
+Kotrimoksazol,interacts_with,Sulfamethoxazole
+Lansoprazole,is_alternative_to,Pantoprazole
+Lansoprazole,is_alternative_to,Omeprazole
+Lantus (Insulin Glargine),is_alternative_to,Levemir
+Laxadine,is_alternative_to,Microlax
+Levofloxacin,is_alternative_to,Moxifloxacin
+Loratadine,is_alternative_to,Cetirizine
+Lovenox (Enoxaparin),is_alternative_to,Heparin
+Madopar,interacts_with,Levodopa
+Madopar,interacts_with,Benserazide
+Meloxicam,is_alternative_to,Celecoxib
+Metformin,is_alternative_to,Glimepiride
+Metformin,is_alternative_to,Sitagliptin
+Methylprednisolone,is_alternative_to,Prednisone
+Lameson,is_alternative_to,Medixon
+Metronidazole,is_alternative_to,Tinidazole
+Micardis (Telmisartan),is_alternative_to,Valsartan
+Mucogard,is_alternative_to,Sucralfate
+Neo-Mercazole,is_alternative_to,Thyrozol
+Neurodex,is_alternative_to,Neurobion
+Nifedipin,is_alternative_to,Amlodipin
+Nitrokaf (Nitroglycerin),is_alternative_to,Isosorbide Dinitrate
+Noperten,is_alternative_to,Lisinopril
+Norelut (Norethisterone),is_alternative_to,Primolut
+Norvask,is_alternative_to,Tensivask
+Novalgin (Metamizole),is_alternative_to,Sanmol (Paracetamol)
+Olmetec (Olmesartan),is_alternative_to,Irbesartan
+Omeprazole,is_alternative_to,Esomeprazole
+Ondansetron,is_alternative_to,Granisetron
+Osteocal,is_alternative_to,Cal-95
+Paracetamol,is_alternative_to,Ibuprofen
+Sanmol,is_alternative_to,Dumin
+Paratusin,interacts_with,Paracetamol
+Paratusin,interacts_with,Pseudoephedrine
+Paratusin,interacts_with,Chlorpheniramine
+Phenytoin,is_alternative_to,Carbamazepine
+Propiltiourasil (PTU),is_alternative_to,Methimazole
+Propranolol,is_alternative_to,Atenolol
+Pulmicort (Budesonide),is_alternative_to,Flixotide
+Pyrazinamide,interacts_with,Rifampicin (often used with)
+Ramixal (Ramipril),is_alternative_to,Lisinopril
+Ranitidine,is_alternative_to,Famotidine
+Ranitidine,is_alternative_to,Cimetidine
+Renadinac (Diclofenac),is_alternative_to,Voltaren
+Retaphyl (Theophylline),is_alternative_to,Aminophylline
+Rhinofed,interacts_with,Pseudoephedrine
+Rhinofed,interacts_with,Terfenadine (Historical)
+Rhinos,interacts_with,Loratadine
+Rhinos,interacts_with,Pseudoephedrine
+Rifampicin,is_alternative_to,Isoniazid (TB Context)
+Salbutamol,is_alternative_to,Terbutaline
+Ventolin,is_alternative_to,Meptin
+Salofalk (Mesalazine),is_alternative_to,Sulfasalazine
+Scabimite (Permethrin),is_alternative_to,Benzyl Benzoate
+Simvastatin,is_alternative_to,Atorvastatin
+Solosa (Glimepiride),is_alternative_to,Amaryl
+Spironolacton,is_alternative_to,Eplerenone
+Stesolid (Diazepam),is_alternative_to,Valdimex
+Symbicort,interacts_with,Budesonide
+Symbicort,interacts_with,Formoterol
+Thyrozol (Thiamazole),is_alternative_to,Neomercazole
+Tramadol,is_alternative_to,Ultracet
+Tramset,interacts_with,Tramadol
+Tramset,interacts_with,Paracetamol
+Tremenza,interacts_with,Pseudoephedrine
+Tremenza,interacts_with,Triprolidine
+Ulsafate (Sucralfate),is_alternative_to,Inpepsa
+Valdimex (Diazepam),is_alternative_to,Apazol
+Vastigo (Betahistine),is_alternative_to,Mertigo
+Voltadex (Diclofenac),is_alternative_to,Cataflam
+Xanvit,is_alternative_to,Becom-Z
+Zink,is_alternative_to,Zinc Sulfate
+Lyrica (Pregabalin),is_alternative_to,Gabapentin
+Oralit,is_alternative_to,Pedialyte
+Aminefron,is_alternative_to,Ketosteril
+Antasida,is_alternative_to,Mylanta
+Imboost,is_alternative_to,Stimuno
+Imunos,is_alternative_to,Imboost
+Ka-EN,is_alternative_to,Ringer Lactate
+Kandistatin (Nystatin),is_alternative_to,Candistatin
+Ketosteril,is_alternative_to,Renalog
+Lidocain,is_alternative_to,Xylocain
+Pehacain,interacts_with,Lidocain
+Pehacain,interacts_with,Adrenalin
+Mecobalamin,is_alternative_to,Cyanocobalamin
+Neurosanbe,is_alternative_to,Mecobalamin
+Mefinal (Mefenamic Acid),is_alternative_to,Ponstan
+Nonflamin,is_alternative_to,Tinoridine
+OBH (Cough Syrup),is_alternative_to,Woods
+Prazotec (Lansoprazole),is_alternative_to,Prosogan
+Sanadryl,interacts_with,Diphenhydramine
+Sirdalud (Tizanidine),is_alternative_to,Eperisone
+Syntocinon (Oxytocin),is_alternative_to,Induxin
+Thrombophob,is_alternative_to,Heparin Gel
+Tuzalos,interacts_with,Dextromethorphan
+Verorab,is_alternative_to,Rabipur
+Vitazym,is_alternative_to,Enzyplex
+Durogesic (Fentanyl),is_alternative_to,Morphine
+Neuralgin,is_alternative_to,Ibuprofen
+Neuralgin,interacts_with,Methampyrone
+Nocid,is_alternative_to,Ketosteril
+Zincpro,is_alternative_to,Zinkid
+Bricasma,is_alternative_to,Ventolin
+Citicoline,is_alternative_to,Piracetam
